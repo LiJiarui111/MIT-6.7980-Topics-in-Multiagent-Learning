@@ -250,8 +250,7 @@ We stated and proved Sperner's lemma for the two-dimensional grid, and used that
   #strong[(b) 10 points.] Design an algorithm that computes an assignment and prices that make every roommate almost happy (in the sense above). Your algorithm can query the desire functions $d_C,d_N,d_G$ on valid rent splits $(p_R,p_Y,p_B)$. For example, querying $d_C (p_R,p_Y,p_B)$ is asking Costis "Given valid rent split $(p_R,p_Y,p_B)$, which room do you prefer?"
 
   #solution[
-    hi
-  
+    Iterate over all valid rent splits $(p_R,p_Y,p_B)$. At each valid rent split, we consider the triangle above and below it. For each triangle, for each vertex we identify the owner and use the relevant desire function ($d_C,d_N,d_G$) on the three vertices of each triangle to identify the label. If we find a trichromatic triangle, we return the assignment and prices corresponding to one of  the vertices of that triangle. Since there are $O(n^2)$ valid rent splits, and each query takes constant time, the algorithm runs in polynomial time.
   ]
 ]
 
