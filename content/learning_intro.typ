@@ -96,6 +96,8 @@ The special case where $Phi$ is chosen to be the set of constant transformations
 ] <def-external-regret>
 Again, the goal for a regret minimizer is to ensure its cumulative regret $"Reg"^((T))$ grows sublinearly in $T$.
 
+#strong[Terminological remark.] The name _regret minimizer_ is a bit of a misnomer. The goal is not to make regret as small as possible, but to guarantee that it grows sublinearly in $T$. Concretely, a regret minimizer is an online algorithm that chooses its strategy for each round using only information from previous rounds — the strategies played and the utility functions observed so far. It is not required to output the strategy that minimizes hindsight regret once all utilities are known, and it is not required to minimize the regret accumulated up to round $t$. What matters is only long run growth rate. If regret grows sublinearly, then regret divided by $T$ goes to zero as $T$ grows. This means that on average per round, the algorithm does just as well as the best fixed strategy in hindsight. A few bad rounds, even many bad rounds early on, are okay. The important thing is that the algorithm doesn't keep falling behind the best fixed strategy by a meaningful amount as more rounds are played.
+
 An important result asserts the existence of algorithms that guarantee sublinear regret for any convex and compact domain $cX$, typically of the order $"Reg"^((T)) = O(sqrt(T))$ asymptotically.
 
 As we will show below, external regret minimization alone is enough to guarantee convergence to Nash equilibrium in two-player zero-sum games, to coarse correlated equilibrium in multiplayer general-sum games, to best responses to static stochastic opponents in multiplayer general-sum games, and much more.
