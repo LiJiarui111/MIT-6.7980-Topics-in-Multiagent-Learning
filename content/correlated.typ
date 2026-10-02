@@ -359,6 +359,93 @@ All remarks made about the computation of CCEs in normal-form games apply to CEs
 
 However, the remark about computation in imperfect-information sequential games does not apply to CEs. Whether a CE can be computed efficiently in such games is an open question in the field. Some mild evidence suggests that the problem might be hard. Intuitively, the issue is that the number of functions $phi.alt$ in those games might be too large to control.
 
+#exercise[Equivalence of CE and CCE for two-action games][
+Prove that if every player has exactly two actions, the set of coarse correlated equilibrium (CCE) and correlated equilibrium (CE) coincide.
+]
+
+#solution[
+  Let the action space for player $i$ be $A_i = {x, y}$. We must show that CE $subset.eq$ CCE, and conversely, CCE $subset.eq$ CE for two-action games.
+
+  *Every CE is a CCE.*
+  
+  From Remark L3.13 we know that CE $subset.eq$ CCE for all games.
+
+  *Every CCE is a CE when $|A_i| = 2$.*
+
+  Let $mu$ be a CCE. So,
+  $
+  E_((a_1, dots, a_n) tilde mu)
+  [u_i (a_i', a_(-i))]
+  <=
+  E_((a_1, dots, a_n) tilde mu)
+  [u_i (a_i, a_(-i))]
+  $
+
+  must hold for any fixed deviation. Consider a unilateral deviation by player $i$ to always play $x$. Expanding the expectation over the possible recommended actions $a_i in {x, y}$ gives:
+
+  $
+  sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))
+  +
+  sum_(a_(-i)) mu(y, a_(-i)) u_i (x, a_(-i))
+  \ <=
+  sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))
+  +
+  sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
+  $
+
+  Subtracting the common term $sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))$ from both sides:
+
+  #grid(
+    columns: (1fr, auto),
+    align: (left, right),
+    [
+      $
+        sum_(a_(-i)) mu(y, a_(-i)) u_i (x, a_(-i))
+        <=
+        sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
+      $
+    ],
+    [(Inequality A)]
+  )
+
+  Similarly, consider a unilateral deviation to always play $y$. Expanding the CCE expectation and simplifying gives:
+
+  #grid(
+      columns: (1fr, auto),
+      align: (left, right),
+      [
+    $
+    sum_(a_(-i)) mu(x, a_(-i)) u_i (y, a_(-i))
+    <=
+    sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))
+    $
+    ],
+    [(Inequality B)]
+  )
+
+  To prove $mu$ is a CE, we must show that the CE inequality holds for all possible functions $phi_i: A_i -> A_i$. Since $A_i = {x, y}$, there are exactly four such functions:
+
+  1. *Always deviate to $x$ or always deviate to $y$* ($phi_i (a_i) = x$ or $phi_i (a_i) = y$): These are satisfied because $mu$ is a CCE.
+
+  2. *Identity* ($phi_i (a_i) = a_i$): This trivially holds as an equality since the expected payoffs remain completely unchanged.
+
+  3. *Swap* ($phi_i (x) = y$ and $phi_i (y) = x$): The expected utility of swapping recommended actions must not exceed the expected utility of playing the recommendations. The required CE inequality for the swap function is:
+
+  $
+  sum_(a_(-i)) mu(x, a_(-i)) u_i (y, a_(-i))
+  +
+  sum_(a_(-i)) mu(y, a_(-i)) u_i (x, a_(-i))
+  \ <=
+  sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))
+  +
+  sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
+  $
+
+  This expression is exactly the sum of Inequality A and Inequality B. Since both inequalities are true by the assumption that $mu$ is a CCE, their sum must also hold.
+
+  Because all four possible modification functions satisfy the CE requirement, $mu$ is a CE.
+]
+
 == How to think about correlated play in games
 
 We can think of the correlation between the strategies of the players in a correlated or coarse correlated equilibrium as arising from some _correlation device_ in the game. This is a trusted mediator that can recommend but not enforce behavior. The distribution $vmu$ from which the correlation device samples recommendations is public knowledge, but the players only get to observe the recommended action that was sampled for them. A correlated / coarse correlated equilibrium is then a distribution $vmu$ such that no player can unilaterally deviate from the recommended action to improve their payoff.
