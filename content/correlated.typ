@@ -337,6 +337,74 @@ Hence, the set of CCEs is the intersection of a finite set of linear constraints
 
 It is worth knowing that a CCE can also be computed in polynomial time in imperfect-information sequential games, despite the number of "actions" there, which is the number of strategies in the tree, is exponential in the input. Unfortunately, we lose the ability to optimize over the set.
 
+#exercise[Marginals of CCE in Two-Player Zero-Sum Games][
+  Consider a two-player zero-sum game. Let $mu in Delta(A_1 times A_2)$ be a coarse correlated equilibrium (CCE). Let $x in Delta(A_1)$ and $y in Delta(A_2)$ be the marginal strategies of $mu$, defined by:
+
+  $
+  x(a_1) = sum_(a_2 in A_2) mu(a_1, a_2)
+  quad "and" quad
+  y(a_2) = sum_(a_1 in A_1) mu(a_1, a_2).
+  $
+  Prove that the strategy profile $(x, y)$ is a Nash equilibrium, and therefore $x$ and $y$ are maxmin strategies. Furthermore, contrast this with marginalization in general-sum games.
+]
+
+#solution[
+  Let $v$ be the expected utility of Player 1 under the joint CCE distribution $mu$. Because the game is zero-sum, Player 2's expected utility under $mu$ is $-v$. By the definition of a CCE, Player 1 cannot strictly improve their expected utility by unilaterally deviating to any fixed action $a_1 ' in A_1$. We can write Player 1's expected utility for this deviation as:
+
+  $
+  sum_(a_1 in A_1) sum_(a_2 in A_2)
+  mu(a_1, a_2) u_1(a_1 ', a_2) <= v
+
+  \ <=>
+  sum_(a_2 in A_2)
+  [
+  sum_(a_1 in A_1) mu(a_1, a_2)
+  ]
+  u_1(a_1 ', a_2)
+  <= v
+
+  <=>
+
+  sum_(a_2 in A_2) y(a_2) u_1(a_1 ', a_2) <= v.
+  $
+
+  This is exactly the expected utility for Player 1 playing $a_1 '$ against Player 2's marginal strategy $y$. Therefore,
+
+  $
+  u_1(a_1 ', y) <= v
+  quad forall a_1 ' in A_1.
+  $
+
+  Similarly, the CCE definition ensures Player 2 cannot improve from $-v$ by deviating to any $a_2 ' in A_2$. So,
+  $
+  u_2(x, a_2 ') <= -v
+  quad forall a_2 ' in A_2.
+  $
+
+  Substituting $u_2 = -u_1$, this becomes
+
+  $
+  u_1(x, a_2 ') >= v
+  quad forall a_2 ' in A_2.
+  $
+
+  Combining both bounds, we see that for any pure responses $a_1 '$ and $a_2 '$,
+
+  $
+  u_1(a_1 ', y) <= v <= u_1(x, a_2 ').
+  $
+
+  This forces $u_1(x, y) = v$. More importantly, it demonstrates that $x$ and $y$ are mutual best responses. If Player 2 plays $y$, Player 1 is capped at $v$ and cannot do better than playing $x$. If Player 1 plays $x$, Player 2 cannot do better than playing $y$. Thus, $(x, y)$ is a Nash equilibrium.
+
+  *Marginalization in general-sum games*
+
+  In a coarse correlated equilibrium (CCE), a trusted mediator draws from a joint distribution and privately recommends actions to each player. In general-sum games, this joint distribution is essential because it allows players to coordinate and avoid mutually bad outcomes.
+
+  When you marginalize a CCE, you remove this coordination and force players to randomize independently. Because the players are now acting blindly relative to one another, the risk of uncoordinated, mutual bad outcomes increases. Consequently, players gain new incentives to unilaterally deviate to protect themselves, meaning the marginal strategies no longer form a Nash equilibrium. 
+
+  In contrast, two-player zero-sum games have perfectly opposed interests, with $U_2 = -U_1$. As shown above, the marginal strategies form a Nash equilibrium and satisfy the maximin conditions. Intuitively, in this case there are no mutually beneficial outcomes that require coordination through the joint distribution. Thus, removing the correlation does not introduce new incentives to deviate, allowing the marginal strategies to retain their equilibrium properties.
+]
+
 == Correlated equilibrium <sec-ce>
 
 The concept of _correlated equilibrium_ is an intermediate relaxation between Nash equilibrium and coarse correlated equilibrium.
