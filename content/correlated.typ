@@ -210,7 +210,72 @@ In games with more than two players, the behavior of Nash equilibria can be even
 ]
 
 #proof[
-  Homework.
+  We know from Lecture 1 that a Nash equilibrium is guaranteed to exist, so we begin by considering the pure-strategy profiles. Checking all 8 possible pure-strategy combinations reveals that, in every case, at least one player can unilaterally deviate and increase their payoff. For example, if the players choose ("Top","Left","Action X"). Player 2 can deviate from Left to Right and increase their payoff from 0 to 2, so this profile cannot be a Nash equilibrium. The same reasoning applies to all 8 pure-strategy profiles.
+  
+  Since a Nash equilibrium is guaranteed to exist, but no pure-strategy equilibrium exists, the equilibrium must therefore involve mixed strategies. Let Player 1 play Top with probability x, Player 2 play Left with probability y, and Player 3 play Action X with probability z.
+  
+  For a mixed-strategy Nash equilibrium, each player must be indifferent between the pure actions. In other words, given the mixing probabilities of other players, the expected payoff from each of a player's available actions must be equal. Otherwise, the player could unilaterally deviate to one action to increase their expected payoff. We therefore set the expected payoffs from each player's two actions equal and solve the resulting system of equations for x, y, and z.
+
+  Player 1:
+  $
+  u_1("Top") = 3"yz" + y(1-z)
+  $
+  $
+  u_1("Bottom") = (1-y)z + 2(1-y)(1-z)
+  $
+  Equating $u_1("Top") = u_1("Bottom")$ and simplifying yields:
+  $
+  "yz" + 3y + z - 2 = 0
+  $
+
+  Player 2:
+  $
+  u_2("Left") = z(1-x) + 3(1-z)(1-x) = (1-x)(3-2z)
+  $
+  $
+  u_2("Right") = z(2x) + x(1-z) = x(1+z)
+  $
+  Equating $u_2("Left") = u_2("Right")$ and simplifying yields:
+  $
+  "xz" - 4x - 2z + 3 = 0
+  $
+
+  Player 3:
+  $
+  u_3("Action X") = 2"xy"
+  $
+  $
+  u_3("Action Y") = 3(1-x)(1-y)
+  $
+  Equating $u_3("Action X") = u_3("Action Y")$ and simplifying yields:
+  $
+  "xy" - 3x - 3y + 3 = 0
+  $
+
+  Solving the System of Equations:
+
+  From Player 2's equation:
+  $z = (4x-3)/(x-2)$
+
+  From Player 3's equation:
+  $y = (3x-3)/(x-3)  $
+
+  Substituting these expressions into Player 1's equation:
+  $
+  ((3x-3)/(x-3))((4x-3)/(x-2)) + 3((3x-3)/(x-3)) + (4x-3)/(x-2) - 2 = 0
+  $
+  This simplifies to:
+  $
+  23x^2 - 53x + 24 = 0
+  $
+
+  Using the quadratic formula to solve for $x$ gives:
+  $
+  x = (53 - sqrt(601))/46 approx 0.619
+  $
+  Substituting this irrational value of $x$ back into the expressions for $y$ and $z$ produces:
+  $y = (-13 + sqrt(601))/24 approx 0.480$
+  and $  z = (-23 + sqrt(601))/4 approx 0.379$
 ]
 
 #remark[
