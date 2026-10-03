@@ -421,7 +421,7 @@ The concept of _correlated equilibrium_ is an intermediate relaxation between Na
 
 #remark[
   A CCE is a special case of a CE, where the functions $phi.alt_i$ considered are only _constant_ functions. Furthermore, it is not hard to show from expanding the definition that any Nash equilibrium is a CE. Thus, the set of CEs is a superset of the set of Nash equilibria and a subset of the set of CCEs.
-]
+] <rem-ce-subset-cce>
 
 All remarks made about the computation of CCEs in normal-form games apply to CEs as well. In particular, the set of CEs is a convex polytope, and a CE can be computed in polynomial time using linear programming.
 
@@ -436,7 +436,7 @@ Prove that if every player has exactly two actions, the set of coarse correlated
 
   *Every CE is a CCE.*
   
-  From Remark L3.13 we know that CE $subset.eq$ CCE for all games.
+  From @rem-ce-subset-cce we know that CE $subset.eq$ CCE for all games.
 
   *Every CCE is a CE when $|A_i| = 2$.*
 
@@ -463,33 +463,21 @@ Prove that if every player has exactly two actions, the set of coarse correlated
 
   Subtracting the common term $sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))$ from both sides:
 
-  #grid(
-    columns: (1fr, auto),
-    align: (left, right),
-    [
-      $
-        sum_(a_(-i)) mu(y, a_(-i)) u_i (x, a_(-i))
-        <=
-        sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
-      $
-    ],
-    [(Inequality A)]
-  )
+  #set math.equation(numbering: "(1)")
+  $
+    sum_(a_(-i)) mu(y, a_(-i)) u_i (x, a_(-i))
+    <=
+    sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
+  $ <eq:ce-cce-dev-x>
 
   Similarly, consider a unilateral deviation to always play $y$. Expanding the CCE expectation and simplifying gives:
 
-  #grid(
-      columns: (1fr, auto),
-      align: (left, right),
-      [
-    $
+  $
     sum_(a_(-i)) mu(x, a_(-i)) u_i (y, a_(-i))
     <=
     sum_(a_(-i)) mu(x, a_(-i)) u_i (x, a_(-i))
-    $
-    ],
-    [(Inequality B)]
-  )
+  $ <eq:ce-cce-dev-y>
+  #set math.equation(numbering: none)
 
   To prove $mu$ is a CE, we must show that the CE inequality holds for all possible functions $phi_i: A_i -> A_i$. Since $A_i = {x, y}$, there are exactly four such functions:
 
@@ -509,7 +497,7 @@ Prove that if every player has exactly two actions, the set of coarse correlated
   sum_(a_(-i)) mu(y, a_(-i)) u_i (y, a_(-i))
   $
 
-  This expression is exactly the sum of Inequality A and Inequality B. Since both inequalities are true by the assumption that $mu$ is a CCE, their sum must also hold.
+  This expression is exactly the sum of inequalities (@eq:ce-cce-dev-x) and (@eq:ce-cce-dev-y). Since both inequalities are true by the assumption that $mu$ is a CCE, their sum must also hold.
 
   Because all four possible modification functions satisfy the CE requirement, $mu$ is a CE.
 ]
