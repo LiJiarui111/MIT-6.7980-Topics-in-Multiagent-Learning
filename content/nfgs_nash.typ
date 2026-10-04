@@ -75,18 +75,27 @@ In general, defining what constitutes “optimal play” is tricky. But we can s
 #remark[
   Without loss of generality, when verifying if a profile $(vx_1 \, ... \, vx_n)$ is a Nash equilibrium, it is sufficient to consider only _deterministic_ deviations $a_i in A_i$. Indeed, if a player has a profitable randomized deviation, this must mean that at least one of the actions they are randomizing over is profitable.
 ]
+#proof[
+  Let $vx = (vx_1 \, ... \, vx_n)$ be a strategy profile. Assume there exists a strictly profitable randomized deviation $vx'_i in Delta (A_i)$ for player $i$, meaning:
+  
+  $ u_i (vx'_i \, vx_(- i)) > u_i (vx_i \, vx_(- i)) . $
 
-It is clear that a dominant-strategy equilibrium is a special case of a Nash equilibrium, since in a dominant-strategy equilibrium, by definition,
+  By the definition of expected utility for a mixed strategy, this is the weighted sum of the pure action payoffs:
+  
+  $ sum_(a_i in A_i) x'_(i \, a_i) u_i (a_i \, vx_(- i)) > u_i (vx_i \, vx_(- i)) . $
 
-#math.equation(
-  block: true,
-  numbering: (..nums) => "(Dominant-strategy eq.)",
-  $forall i in \[ n \] \, vx'_i in Delta (A_i) \, vx'_(- i) in Delta (A_(- i)) \, \ u_i (vx'_i \, vx'_(- i)) <= u_i (vx_i \, vx'_(- i)) .$.body,
-)
+  For the sake of contradiction, assume that no deterministic action is strictly profitable. Thus, for all $a_i in A_i$:
+  
+  $ u_i (a_i \, vx_(- i)) <= u_i (vx_i \, vx_(- i)) . $
 
-(note the stronger quantifiers.) As we will discuss more in depth shortly, in two-player zero-sum games, it turns out that Nash equilibrium and maxmin equilibrium are equivalent.
+  Because $vx'_i$ is a valid strategy in $Delta (A_i)$, we know $x'_(i \, a_i) >= 0$ for all $a_i$ and $sum_(a_i in A_i) x'_(i \, a_i) = 1$. Multiplying our assumption by the probabilities $x'_(i \, a_i)$ and summing over all $a_i in A_i$ yields:
+  
+  $ sum_(a_i in A_i) x'_(i \, a_i) u_i (a_i \, vx_(- i)) & <= sum_(a_i in A_i) x'_(i \, a_i) u_i (vx_i \, vx_(- i)) \
+    & = u_i (vx_i \, vx_(- i)) sum_(a_i in A_i) x'_(i \, a_i) \
+    & = u_i (vx_i \, vx_(- i)) . $
 
-Before continuing, we consider two examples that help illustrate a couple of important properties of the Nash equilibrium.
+  This directly contradicts our premise that $vx'_i$ yields a strictly greater expected utility than $vx_i$. Therefore, if a profitable randomized deviation $vx'_i$ exists, at least one deterministic action $a_i$ in its support (where $x'_(i \, a_i) > 0$) must also strictly improve the player's utility.
+]
 
 #example[
   The only Nash equilibrium in the game of rock-paper-scissors is for all players to play the uniform strategy. This shows that in some games, no Nash equilibrium exists in pure (_i.e._, non-randomizing) strategies.
