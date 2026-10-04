@@ -30,6 +30,19 @@ To represent a normal-form game, it is common to use a matrix representation.
 
 *Notation.* We write vectors in bold, including a player’s entire strategy $vx_i$, and scalar coordinates in plain type, such as $x_(i \, a_i)$. Hats, bars, and time indices preserve this distinction. Explicit indexing such as $vx[a]$ also denotes a scalar coordinate.
 
+
+
+#example[Introductory utility computation][
+  Suppose Player 1 and Player 2 from the prisoner's dilemma (Example 1.1) randomize their actions. Let Player 1 flip a fair coin, playing the strategy $vx_1 = (0.5 \, 0.5)$ for (Deny, Confess). Let Player 2 lean heavily toward denying, playing $vx_2 = (0.8 \, 0.2)$.
+
+  Player 1's expected utility is simply the sum of their payoffs for each possible outcome, weighted by the joint probability of that outcome occurring:
+  
+  $ u_1 (vx_1 \, vx_2) & = (0.5)(0.8)(-1) + (0.5)(0.2)(-3) + (0.5)(0.8)(0) + (0.5)(0.2)(-2) \
+    & = -0.4 - 0.3 + 0 - 0.2 \
+    & = -0.9 . $
+]
+
+
 *Strategies*  A _randomized strategy_ (also known as _mixed strategy_) for a generic player $i in \[ n \]$ is a distribution over the set of actions. We can represent such an object as a vector $vx_i in Delta (A_i)$, that is, such that $vx_i >= 0$ and $sum_(a_i in A_i) x_(i \, a_i) = 1$. To lighten the notational burden, we will write the expected utility when all players play according to strategies $vx_1 \, ... \, vx_n$ reusing the same letter $u_i$ as the payoff, _i.e._,
 
 $
