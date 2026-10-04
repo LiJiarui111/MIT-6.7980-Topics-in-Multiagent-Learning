@@ -227,7 +227,7 @@ If one is willing to stomach a worst-case superpolynomial runtime, some methods 
 
 = Correlated and coarse correlated equilibrium
 
-The discussion above shows that Nash equilibria can be hard to compute and might not form a convex (or even contractible) set. This motivates the study of _correlated equilibria_ #citep(<Aumann1974Mar>) and _coarse correlated equilibria_ #citep(<moulin1978strategically>), which are a relaxation of Nash equilibria that are easier to compute, always form a convex set, and for which rational solutions always exist. As we will show starting in a few lectures, another major advantage of correlated equilibria is that they can be learned from repeated play, in a way that is fundamentally incompatible with Nash equilibria.#footnote[A paradigm that has been successful in applications is to learn a correlated equilibrium from repeated play, and then marginalize it into a profile that is hoped to be close to a Nash equilibrium. This was used for example to reach superhuman performance in multiplayer poker #citep(<Brown2019Aug>).]
+The discussion above shows that Nash equilibria can be hard to compute and might not form a convex (or even contractible) set. This motivates the study of _correlated equilibria_ #citep(<Aumann1974Mar>) and _coarse correlated equilibria_ #citep(<moulin1978strategically>), which are a relaxation of Nash equilibria that are easier to compute, always form a convex set, and for which rational solutions always exist when the payoffs are rational. As we will show starting in a few lectures, another major advantage of correlated equilibria is that they can be learned from repeated play, in a way that is fundamentally incompatible with Nash equilibria.#footnote[A paradigm that has been successful in applications is to learn a correlated equilibrium from repeated play, and then marginalize it into a profile that is hoped to be close to a Nash equilibrium. This was used for example to reach superhuman performance in multiplayer poker #citep(<Brown2019Aug>).]
 
 == Coarse correlated equilibrium <sec-cce>
 
@@ -252,7 +252,7 @@ The concept of _coarse correlated equilibrium_ is a relaxation of this definitio
 #remark[
   The definition of a CCE is a relaxation of the definition of a Nash equilibrium. In a Nash equilibrium, the players randomize independently; in a CCE, they can randomize in a correlated way. _A Nash equilibrium is a CCE $vmu$ that happens to be a product distribution_, that is, $vmu = vx_1 ⊗ dots.h.c ⊗ vx_n .$
 
-  This shows that the set of CCEs is a superset of the set of Nash equilibria. Thus, a coarse correlated equilibria always exists in every game.
+  This shows that the set of CCEs is a superset of the set of Nash equilibria. Thus, a coarse correlated equilibrium always exists in every game. This argument goes through Nash's theorem, and hence through Brouwer's fixed-point theorem; #lecture-link("eah", <sec-cce-existence>)[a direct proof] uses only the minimax theorem.
 ]
 
 *Properties and computation*  We can turn @def-cce into an optimization problem. The variables are the entries of the probability distribution $vmu$. This is a $(A_1 times dots.h.c times A_n)$-dimensional nonnegative vector whose entries must satisfy the linear equality constraint
@@ -266,13 +266,17 @@ $
 $
 
 for all $i in \[ n \]$ and $a'_i in A_i$.
-Hence, the set of CCEs is the intersection of a finite set of linear constraints, and so it is a convex polytope. Note that the number of constraints is polynomial in the game (_i.e._, in the size of the payoff table), and so we can use linear programming to compute and even optimize over the set of CCEs in time polynomial in $\| A_1 \| times ... times \| A_n \|$.
+Hence, the set of CCEs is the intersection of a finite set of linear constraints, and so it is a convex polytope. Note that the number of constraints is polynomial in the game (_i.e._, in the size of the payoff table), and so we can use linear programming to compute and even optimize over the set of CCEs in time polynomial in $\| A_1 \| times ... times \| A_n \|$. Since this linear program has one variable per action profile, its size grows exponentially with the number of players. The #lecture-link("eah", <sec-minimax-algorithm>)[Ellipsoid-Against-Hope algorithm] avoids this: given a way to evaluate expected utilities under product distributions, it computes an $epsilon.alt$-approximate CCE in time polynomial in $|A_1| + dots.c + |A_n|$ and $log(1 \/ epsilon.alt)$.
 
 #corollary[
-  Since the coefficients of the linear constraints are the payoffs of the game, the set of CCEs is always a rational polytope.
+  If all payoffs are rational numbers, the set of CCEs is a rational polytope, that is, it is described by finitely many linear inequalities with rational coefficients. In particular, its vertices have rational coordinates, so the game admits a CCE with rational coordinates.
 ]
 
-It is worth knowing that a CCE can also be computed in polynomial time in imperfect-information sequential games, despite the number of "actions" there, which is the number of strategies in the tree, is exponential in the input. Unfortunately, we lose the ability to optimize over the set.
+Indeed, the coefficients of the constraints above are payoffs (and the constants $0$ and $1$), and each vertex is the unique solution of a linear system with these coefficients. The rationality assumption cannot be dropped. Consider the two-player zero-sum game with
+$ matU_1 = mat(sqrt(2), 0; 0, 1). $
+Its incentive constraints force the unique CCE to put probabilities $(3 - 2 sqrt(2)) dot (1, sqrt(2), sqrt(2), 2)$ on the action profiles $(1, 1), (1, 2), (2, 1), (2, 2)$, which are irrational.
+
+It is worth knowing that a CCE can also be computed in polynomial time in imperfect-information sequential games, despite the number of "actions" there, which is the number of strategies in the tree, is exponential in the input; one way is #lecture-link("eah", <sec-minimax-algorithm>)[the same Ellipsoid-Against-Hope approach]. Unfortunately, we lose the ability to optimize over the set.
 
 == Correlated equilibrium <sec-ce>
 
@@ -289,10 +293,27 @@ The concept of _correlated equilibrium_ is an intermediate relaxation between Na
 ] <def-ce>
 
 #remark[
-  A CCE is a relaxation of a CE, whereby the functions $phi.alt_i$ considered are only _constant_ functions. Furthermore, it is not hard to show from expanding the definition that any Nash equilibrium is a CE. Thus, the set of CEs is a superset of the set of Nash equilibria and a subset of the set of CCEs.
-]
+  A CCE is a relaxation of a CE: choosing the constant function $phi.alt_i (a_i) = a'_i$ in @def-ce recovers exactly the CCE constraint #ref(<eq:cce>, supplement: none) for the deviation $a'_i$. A CE must additionally withstand every nonconstant $phi.alt_i$, that is, deviations that depend on the recommended action $a_i$. A player who sees the recommendation before deciding how to deviate has more deviations available, so the CE conditions are more demanding and every CE is a CCE.
 
-All remarks made about the computation of CCEs in normal-form games apply to CEs as well. In particular, the set of CEs is a convex polytope, and a CE can be computed in polynomial time using linear programming.
+  Conversely, any Nash equilibrium $(vx_1, ..., vx_n)$, viewed as the product distribution $vmu = vx_1 ⊗ dots.c ⊗ vx_n$, is a CE. Under $vmu$, $a_(-i) ~ vx_(-i)$ independently of $a_i$, so the recommendation reveals nothing about the other players' actions. Hence, for every $i in [n]$ and $phi.alt_i : A_i -> A_i$,
+  $
+    bb(E)_(a ~ vmu) [u_i (phi.alt_i (a_i), a_(-i))] & = sum_(a_i in A_i) x_(i, a_i) u_i (phi.alt_i (a_i), vx_(-i)) \
+    & <= sum_(a_i in A_i) x_(i, a_i) u_i (vx_i, vx_(-i)) = bb(E)_(a ~ vmu) [u_i (a_i, a_(-i))],
+  $
+  where the inequality is the Nash condition $u_i (a'_i, vx_(-i)) <= u_i (vx_i, vx_(-i))$ applied to $a'_i = phi.alt_i (a_i)$.
+
+  Thus, identifying Nash equilibria with product distributions, $"NE" subset.eq "CE" subset.eq "CCE"$.
+] <rem-ce-subset-cce>
+
+All remarks made about the computation of CCEs in normal-form games apply to CEs as well, with one caveat: @def-ce has one constraint for each function $phi.alt_i : A_i -> A_i$, and there are $|A_i|^(|A_i|)$ of them. Most of these constraints are redundant. Splitting the expectation according to the recommended action $a_i$, the constraint for $phi.alt_i$ reads
+$
+  sum_(a_i in A_i) g_i (a_i, phi.alt_i (a_i)) <= 0, quad "where" quad g_i (a_i, a'_i) := sum_(a_(-i) in A_(-i)) mu_(a_i, a_(-i)) [u_i (a'_i, a_(-i)) - u_i (a_i, a_(-i))].
+$
+Taking $phi.alt_i$ to change only $a_i$ into $a'_i$ (and to keep every other action $b$, for which $g_i (b, b) = 0$) shows that $g_i (a_i, a'_i) <= 0$ is necessary, and summing these inequalities shows that they are also sufficient. Hence $vmu$ is a CE if and only if
+$
+  sum_(a_(-i) in A_(-i)) mu_(a_i, a_(-i)) u_i (a'_i, a_(-i)) <= sum_(a_(-i) in A_(-i)) mu_(a_i, a_(-i)) u_i (a_i, a_(-i)) #h(2em) forall i in [n], a_i, a'_i in A_i.
+$
+Dividing by the probability that $a_i$ is recommended (when positive), this says that following the recommendation $a_i$ is a best response to the conditional distribution of $a_(-i)$ given $a_i$. Together with the constraints that $vmu$ is a probability distribution, these $sum_i |A_i|^2$ linear inequalities describe the set of CEs, which is therefore a convex polytope (rational if the payoffs are). As for CCEs, linear programming can compute a CE, or optimize any linear objective over the set of CEs, in time polynomial in $|A_1| times dots.c times |A_n|$.
 
 However, the remark about computation in imperfect-information sequential games does not apply to CEs. Whether a CE can be computed efficiently in such games is an open question in the field. Some mild evidence suggests that the problem might be hard. Intuitively, the issue is that the number of functions $phi.alt$ in those games might be too large to control.
 
