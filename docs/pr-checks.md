@@ -8,6 +8,11 @@ PRs opened before these workflows were installed do not trigger retroactively.
 To cover existing PRs, run **Backfill course HTML reviews** from the default branch.
 Leave `pr_numbers` empty for all open PRs, or provide a comma-separated selection.
 This queues a separate **Course HTML review** for each PR, including forks and drafts.
+The backfill waits for those exact run IDs and explicitly dispatches publication,
+then waits for the publishers. This also handles `GITHUB_TOKEN`-started builds,
+whose completion does not reliably trigger another `workflow_run`. Failed content
+checks still publish their reports; cancelled builds or failed publishers fail
+the backfill so they are visible to the maintainer.
 The publisher posts the report and a **Course HTML review** check on the PR's head
 commit, so manually dispatched results appear in its Checks tab as well as comments.
 Validated reports from failed builds receive a failing result; rerunning the publisher
