@@ -38,6 +38,19 @@ To represent a normal-form game, it is common to use a matrix representation.
 
 *Notation.* We write vectors in bold, including a player’s entire strategy $vx_i$, and scalar coordinates in plain type, such as $x_(i \, a_i)$. Hats, bars, and time indices preserve this distinction. Explicit indexing such as $vx[a]$ also denotes a scalar coordinate.
 
+
+
+#example[Introductory utility computation][
+  Suppose Player 1 and Player 2 from the prisoner's dilemma (Example 1.1) randomize their actions. Let Player 1 flip a fair coin, playing the strategy $vx_1 = (0.5 \, 0.5)$ for (Deny, Confess). Let Player 2 lean heavily toward denying, playing $vx_2 = (0.8 \, 0.2)$.
+
+  Player 1's expected utility is simply the sum of their payoffs for each possible outcome, weighted by the joint probability of that outcome occurring:
+  
+  $ u_1 (vx_1 \, vx_2) & = (0.5)(0.8)(-1) + (0.5)(0.2)(-3) + (0.5)(0.8)(0) + (0.5)(0.2)(-2) \
+    & = -0.4 - 0.3 + 0 - 0.2 \
+    & = -0.9 . $
+]
+
+
 *Strategies*  A _randomized strategy_ (also known as _mixed strategy_) for a generic player $i in \[ n \]$ is a distribution over the set of actions. We can represent such an object as a vector $vx_i in Delta (A_i)$, that is, such that $vx_i >= 0$ and $sum_(a_i in A_i) x_(i \, a_i) = 1$. To lighten the notational burden, we will write the expected utility when all players play according to strategies $vx_1 \, ... \, vx_n$ reusing the same letter $u_i$ as the payoff, _i.e._,
 
 $
@@ -169,18 +182,27 @@ In general, defining what constitutes “optimal play” is tricky. But we can s
 #remark[
   Without loss of generality, when verifying if a profile $(vx_1 \, ... \, vx_n)$ is a Nash equilibrium, it is sufficient to consider only _deterministic_ deviations $a_i in A_i$. Indeed, if a player has a profitable randomized deviation, this must mean that at least one of the actions they are randomizing over is profitable.
 ]
+#proof[
+  Let $vx = (vx_1 \, ... \, vx_n)$ be a strategy profile. Assume there exists a strictly profitable randomized deviation $vx'_i in Delta (A_i)$ for player $i$, meaning:
+  
+  $ u_i (vx'_i \, vx_(- i)) > u_i (vx_i \, vx_(- i)) . $
 
-It is clear that a dominant-strategy equilibrium is a special case of a Nash equilibrium, since in a dominant-strategy equilibrium, by definition,
+  By the definition of expected utility for a mixed strategy, this is the weighted sum of the pure action payoffs:
+  
+  $ sum_(a_i in A_i) x'_(i \, a_i) u_i (a_i \, vx_(- i)) > u_i (vx_i \, vx_(- i)) . $
 
-#math.equation(
-  block: true,
-  numbering: (..nums) => "(Dominant-strategy eq.)",
-  $forall i in \[ n \] \, vx'_i in Delta (A_i) \, vx'_(- i) in Delta (A_(- i)) \, \ u_i (vx'_i \, vx'_(- i)) <= u_i (vx_i \, vx'_(- i)) .$.body,
-)
+  For the sake of contradiction, assume that no deterministic action is strictly profitable. Thus, for all $a_i in A_i$:
+  
+  $ u_i (a_i \, vx_(- i)) <= u_i (vx_i \, vx_(- i)) . $
 
-(note the stronger quantifiers.) As we will discuss more in depth shortly, in two-player zero-sum games, it turns out that Nash equilibrium and maxmin equilibrium are equivalent.
+  Because $vx'_i$ is a valid strategy in $Delta (A_i)$, we know $x'_(i \, a_i) >= 0$ for all $a_i$ and $sum_(a_i in A_i) x'_(i \, a_i) = 1$. Multiplying our assumption by the probabilities $x'_(i \, a_i)$ and summing over all $a_i in A_i$ yields:
+  
+  $ sum_(a_i in A_i) x'_(i \, a_i) u_i (a_i \, vx_(- i)) & <= sum_(a_i in A_i) x'_(i \, a_i) u_i (vx_i \, vx_(- i)) \
+    & = u_i (vx_i \, vx_(- i)) sum_(a_i in A_i) x'_(i \, a_i) \
+    & = u_i (vx_i \, vx_(- i)) . $
 
-Before continuing, we consider two examples that help illustrate a couple of important properties of the Nash equilibrium.
+  This directly contradicts our premise that $vx'_i$ yields a strictly greater expected utility than $vx_i$. Therefore, if a profitable randomized deviation $vx'_i$ exists, at least one deterministic action $a_i$ in its support (where $x'_(i \, a_i) > 0$) must also strictly improve the player's utility.
+]
 
 #example[
   The only Nash equilibrium in the game of rock-paper-scissors is for all players to play the uniform strategy. This shows that in some games, no Nash equilibrium exists in pure (_i.e._, non-randomizing) strategies.
