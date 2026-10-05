@@ -393,7 +393,7 @@ The concept of _correlated equilibrium_ is an intermediate relaxation between Na
 
 #remark[
   A CCE is a relaxation of a CE, whereby the functions $phi.alt_i$ considered are only _constant_ functions. Furthermore, it is not hard to show from expanding the definition that any Nash equilibrium is a CE. Thus, the set of CEs is a superset of the set of Nash equilibria and a subset of the set of CCEs.
-]<rem-ce-subset-cce>
+]
 
 All remarks made about the computation of CCEs in normal-form games apply to CEs as well. In particular, the set of CEs is a convex polytope, and a CE can be computed in polynomial time using linear programming.
 
@@ -404,7 +404,7 @@ However, the remark about computation in imperfect-information sequential games 
 ]
 
 #solution[
-  Every CE is a CCE by @rem-ce-subset-cce. Conversely, let $vmu$ be a CCE and fix a player $i$ with $A_i={b,c}$. Expanding the CCE constraint for always choosing $b$ and canceling the terms where $b$ was already recommended gives
+  Every CE is a CCE because constant deviations are allowed in the definition of a CE. Conversely, let $vmu$ be a CCE and fix a player $i$ with $A_i={b,c}$. Expanding the CCE constraint for always choosing $b$ and canceling the terms where $b$ was already recommended gives
   $
     sum_(a_(-i) in A_(-i)) mu_(c,a_(-i)) [u_(i)(b,a_(-i))-u_(i)(c,a_(-i))] <= 0.
   $
