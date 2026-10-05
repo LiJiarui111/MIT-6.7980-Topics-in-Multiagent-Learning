@@ -108,6 +108,10 @@ $ B dot.op L dot.op \( n k \)^(O \( n k \)) . $
 
 Recall that the bits required to represent a $n$-player game with $k$ actions per player is $L dot.op n dot.op k^n$. So the running time of our algorithm could be exponential in the description of the game, e.g.~when $n$ stays constant and $k$ goes to infinity. On the other hand, the running time is quasi-polynomial if the growth of $k$ is bounded by a polynomial in $n$.#footnote[A _quasi-polynomial-time algorithm_ for some computational task is an algorithm that solves an instance $Pi$ of the task in time $2^(op("poly") \( log d \( Pi \) \))$, where $d \( Pi \)$ is the description complexity of instance $Pi$. If the polynomial in the exponent of the running time is of degree $1$ the algorithm is called _polynomial-time_.]
 
+#exercise[
+  For a two-player game, given the supports $S_C$ and $S_R$, if there are finitely many NE with that support, must there be only one? What about an n-player game?
+] <S01-ImprovementP3.3>
+
 = Algorithms for Symmetric Games
 #label("sec:symmetric games")
 
@@ -378,3 +382,16 @@ We make some final remarks about the Lemke-Howson algorithm.
 = Bibliography for this lecture
 
 #lec_bibliography("meta/refs.bib", title: none)
+
+= Appendix A: Solutions to Selected Exercises
+
+== Solution to #ref(<S01-ImprovementP3.3>)
+
+#toggle[Reveal Solution to #ref(<S01-ImprovementP3.3>)][
+  #proof[
+  Consider an arbitrary game $cal(G)$ with $n$ players.
+
+  TODO
+
+  ]
+]
