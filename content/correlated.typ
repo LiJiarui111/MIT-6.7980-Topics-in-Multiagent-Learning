@@ -239,8 +239,33 @@ In games with more than two players, the behavior of Nash equilibria can be even
   From a computational point of view, this property raises the question of how a Nash equilibrium solver could even _represent_ such an output.
 ]
 
-#proof[
-  Homework.
+#exercise[The irrational Nash equilibrium in the preceding example][
+  Prove that the three-player game above has exactly the stated Nash equilibrium. In particular, rule out equilibria in which only some players mix before imposing indifference for all three players.
+]
+
+#solution[
+  Let $x$, $y$, and $z$ be the probabilities of Top, Left, and Action X, respectively. The payoff gains from choosing Top rather than Bottom, Left rather than Right, and Action X rather than Action Y are
+  $
+    d_1 &= 3 y z + y(1-z) - (1-y)z - 2(1-y)(1-z) = y z + 3y + z - 2, \
+    d_2 &= (1-x)z + 3(1-x)(1-z) - 2x z - x(1-z) = x z - 4x - 2z + 3, \
+    d_3 &= 2x y - 3(1-x)(1-y) = -x y + 3x + 3y - 3.
+  $
+  In equilibrium, a positive gain forces the corresponding probability to be $1$, a negative gain forces it to be $0$, and a probability strictly between $0$ and $1$ requires zero gain.
+
+  First, $x=0$ gives $d_2=3-2z>0$, so $y=1$, which gives $d_1=1+2z>0$ and contradicts $x=0$. Similarly, $x=1$ gives $d_2=-1-z<0$, so $y=0$, which gives $d_1=z-2<0$ and contradicts $x=1$. Thus $0<x<1$. Since $y=0$ makes $d_1<0$ and $y=1$ makes $d_1>0$, we also have $0<y<1$.
+
+  It follows that $d_1=d_2=0$. If $z=0$, these equations give $(x,y)=(3/4,2/3)$ and hence $d_3=3/4>0$, contradicting $z=0$. If $z=1$, they give $(x,y)=(1/3,1/4)$ and hence $d_3=-4/3<0$, contradicting $z=1$. Therefore every player mixes, and all three gains must vanish.
+
+  Solving $d_2=d_3=0$ gives $z=(4x-3)/(x-2)$ and $y=(3x-3)/(x-3)$. The denominators are nonzero because $0<x<1$. Substituting into $d_1=0$ yields
+  $
+    0 = frac(23x^2-53x+24, (x-3)(x-2)), quad
+    x = frac(53 plus.minus sqrt(601), 46).
+  $
+  The root with the plus sign exceeds $1$. The remaining root gives
+  $
+    (x,y,z) = (frac(53-sqrt(601),46), frac(-13+sqrt(601),24), frac(-23+sqrt(601),4)).
+  $
+  All three probabilities lie strictly between $0$ and $1$ and make every player indifferent, so this profile is a Nash equilibrium. The boundary exclusions and the unique admissible root prove uniqueness. Since $601$ is not a perfect square, all three probabilities are irrational.
 ]
 
 #remark[
@@ -327,11 +352,11 @@ Its incentive constraints force the unique CCE to put probabilities $(3 - 2 sqrt
 It is worth knowing that a CCE can also be computed in polynomial time in imperfect-information sequential games, despite the number of "actions" there, which is the number of strategies in the tree, is exponential in the input; one way is #lecture-link("eah", <sec-minimax-algorithm>)[the same Ellipsoid-Against-Hope approach]. Unfortunately, we lose the ability to optimize over the set.
 
 #exercise[Marginals of a zero-sum CCE form a Nash equilibrium][
-  Let $vmu in Delta (A_1 times A_2)$ be a coarse correlated equilibrium of a two-player _zero-sum_ game, i.e. $U_2 = - U_1$. Show that the marginal strategies
+  Let $vmu in Delta (A_1 times A_2)$ be a coarse correlated equilibrium of a two-player _zero-sum_ game, i.e. $matU_2 = - matU_1$. Show that the marginal strategies
 
   $ x_(1 \, a_1) := sum_(a'_2 in A_2) mu_(a_1 \, a'_2) \, #h(2em) x_(2 \, a_2) := sum_(a'_1 in A_1) mu_(a'_1 \, a_2) $
 
-  form a Nash equilibrium $(vx_1 \, vx_2)$ of the game.
+  form a Nash equilibrium $(vx_1 \, vx_2)$ of the game, and hence are maxmin strategies. Give a general-sum game and a CCE whose marginal strategies do not form a Nash equilibrium.
 ]
 
 #solution[
@@ -339,19 +364,21 @@ It is worth knowing that a CCE can also be computed in polynomial time in imperf
 
   For every $a'_1 in A_1$, the CCE constraint for player $1$'s deviation to $a'_1$ only depends on the realized action of player $2$, so it can be rewritten using the marginal $vx_2$:
 
-  $ ve_(a'_1)^top U_1 vx_2 = EE_vmu [u_1 (a'_1 \, a_2)] <= overline(V) . $
+  $ ve_(a'_1)^top matU_1 vx_2 = EE_vmu [u_1 (a'_1 \, a_2)] <= overline(V) . $
 
-  Symmetrically, for every $a'_2 in A_2$, using $U_2 = - U_1$,
+  Symmetrically, for every $a'_2 in A_2$, using $matU_2 = - matU_1$,
 
   $
-    - vx_1^top U_1 ve_(a'_2) = EE_vmu [u_2 (a_1 \, a'_2)] <= EE_vmu [u_2 (a_1 \, a_2)] = - overline(V) \, quad upright("i.e.") quad vx_1^top U_1 ve_(a'_2) >= overline(V) .
+    - vx_1^top matU_1 ve_(a'_2) = EE_vmu [u_2 (a_1 \, a'_2)] <= EE_vmu [u_2 (a_1 \, a_2)] = - overline(V) \, quad upright("i.e.") quad vx_1^top matU_1 ve_(a'_2) >= overline(V) .
   $
 
-  Averaging the first family of inequalities against the weights $vx_1$ gives $vx_1^top U_1 vx_2 <= overline(V)$; averaging the second family against the weights $vx_2$ gives $vx_1^top U_1 vx_2 >= overline(V)$. Hence both hold with equality, $vx_1^top U_1 vx_2 = overline(V)$, and substituting this back, the two families of inequalities become
+  Averaging the first family of inequalities against the weights $vx_1$ gives $vx_1^top matU_1 vx_2 <= overline(V)$; averaging the second family against the weights $vx_2$ gives $vx_1^top matU_1 vx_2 >= overline(V)$. Hence both hold with equality, $vx_1^top matU_1 vx_2 = overline(V)$, and substituting this back, the two families of inequalities become
 
-  $ ve_(a'_1)^top U_1 vx_2 <= vx_1^top U_1 vx_2 quad forall a'_1 in A_1 \, #h(2em) vx_1^top U_1 ve_(a'_2) >= vx_1^top U_1 vx_2 quad forall a'_2 in A_2 . $
+  $ ve_(a'_1)^top matU_1 vx_2 <= vx_1^top matU_1 vx_2 quad forall a'_1 in A_1 \, #h(2em) vx_1^top matU_1 ve_(a'_2) >= vx_1^top matU_1 vx_2 quad forall a'_2 in A_2 . $
 
-  The first says no pure deviation improves on $vx_1$ against $vx_2$ (so no mixed deviation does either, by linearity), i.e. $vx_1$ is a best response to $vx_2$ under $U_1$. The second says no pure deviation improves player $2$'s payoff $- vx_1^top U_1 ve_(a'_2)$ against $vx_1$, i.e. $vx_2$ is a best response to $vx_1$ under $U_2 = - U_1$. Together, $(vx_1 \, vx_2)$ is a Nash equilibrium.
+  The first says no pure deviation improves on $vx_1$ against $vx_2$ (so no mixed deviation does either, by linearity), i.e. $vx_1$ is a best response to $vx_2$ under $matU_1$. The second says no pure deviation improves player $2$'s payoff $- vx_1^top matU_1 ve_(a'_2)$ against $vx_1$, i.e. $vx_2$ is a best response to $vx_1$ under $matU_2 = - matU_1$. Together, $(vx_1 \, vx_2)$ is a Nash equilibrium.
+
+  By #ref(label("thm:nash is mm")), these marginal strategies are maxmin strategies. The conclusion can fail in general-sum games: let both players have payoff matrix $matU_1=matU_2=mat(2,0;0,1)$, and let $vmu$ put probability $1/2$ on each diagonal profile. Each player earns $3/2$, while always choosing the first or second action gives $1$ or $1/2$, respectively, so $vmu$ is a CCE. Its marginals are both $(1/2,1/2)$; under their product, each player earns $3/4$ and can improve to $1$ by always choosing the first action. Thus the product of the marginals need not be a Nash equilibrium.
 ]
 
 == Correlated equilibrium <sec-ce>
@@ -393,6 +420,22 @@ Dividing by the probability that $a_i$ is recommended (when positive), this says
 
 However, the remark about computation in imperfect-information sequential games does not apply to CEs. Whether a CE can be computed efficiently in such games is an open question in the field. Some mild evidence suggests that the problem might be hard. Intuitively, the issue is that the number of functions $phi.alt$ in those games might be too large to control.
 
+#exercise[Equivalence of CE and CCE for two-action games][
+  Prove that if every player has two actions, the sets of coarse correlated equilibria and correlated equilibria coincide.
+]
+
+#solution[
+  Every CE is a CCE because constant deviations are allowed in the definition of a CE. Conversely, let $vmu$ be a CCE and fix a player $i$ with $A_i={b,c}$. Expanding the CCE constraint for always choosing $b$ and canceling the terms where $b$ was already recommended gives
+  $
+    sum_(a_(-i) in A_(-i)) mu_(c,a_(-i)) [u_(i)(b,a_(-i))-u_(i)(c,a_(-i))] <= 0.
+  $
+  Similarly, always choosing $c$ gives
+  $
+    sum_(a_(-i) in A_(-i)) mu_(b,a_(-i)) [u_(i)(c,a_(-i))-u_(i)(b,a_(-i))] <= 0.
+  $
+  There are four maps $phi.alt_i:A_i -> A_i$. The two constant maps satisfy the CE constraint because $vmu$ is a CCE, and the identity map gives zero gain. For the map that swaps $b$ and $c$, the expected gain is the sum of the two displayed expressions, so it is nonpositive as well. Thus every recommendation-dependent deviation has nonpositive gain, for every player, and $vmu$ is a CE.
+]
+
 Say an action $a_i in A_i$ is _dominated_ by another action $a_i^(*) in A_i$ if, for every combination of actions $a_(- i) in A_(- i)$ chosen by the other players, $a_i^(*)$ always yields a strictly higher payoff for player $i$ than $a_i$, that is, $u_i (a_i^(*) \, a_(- i)) > u_i (a_i \, a_(- i))$.
 
 #exercise[A dominated action is never recommended by a correlated equilibrium][
@@ -416,6 +459,7 @@ Say an action $a_i in A_i$ is _dominated_ by another action $a_i^(*) in A_i$ if,
 #solution[
   Consider a two-player game where Player 1 has actions ${ U \, M \, D }$, Player 2 has actions ${ L \, R }$, Player 2's payoff is identically $0$, and Player 1's payoffs are
 
+  #show table: it => block(breakable: false, it)
   #align(center)[
     #table(
       stroke: none,
