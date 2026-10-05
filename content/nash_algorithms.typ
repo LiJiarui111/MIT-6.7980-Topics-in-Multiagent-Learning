@@ -61,7 +61,7 @@ The support enumeration algorithm above may need to examine exponentially many p
   $
     vx^T R vy >= ve_i^T R vy - eps quad forall i in [m], qquad vx^T C vy >= vx^T C ve_j - eps quad forall j in [n].
   $
-]
+] <def-eps-nash>
 
 #definition[$k$-uniform strategy][
   Let $k$ be a positive integer. A mixed strategy is _$k$-uniform_ if it is the uniform distribution over a multiset of $k$ actions. Equivalently, every probability it assigns is an integer multiple of $1 \/ k$.
@@ -91,6 +91,21 @@ The argument relies on the following concentration inequality.
   $
   where the first inequality follows by averaging the column bounds with weights $vy^*$. This is Column's condition, completing the proof.
 ]
+
+@thm-lmm suggests the following algorithm. Fix an integer $k > 2 ln(2 n) \/ eps^2$. For each $k$-uniform strategy $xhat$ of Row, solve the linear program
+
+$
+  upright("find") quad & vy in RR^n \
+  upright("s.t.") quad & xhat^T R vy >= ve_i^T R vy - eps & quad forall i in [m] \
+  & xhat^T C vy >= xhat^T C ve_j - eps & quad forall j in [n] \
+  & vone^T vy = 1, quad vy >= 0,
+$
+
+and output $(xhat, vy)$ for the first $xhat$ whose linear program is feasible.
+
+Once $xhat$ is fixed, every constraint is linear in $vy$, so each of these programs is indeed a linear program. Its constraints are exactly the conditions of @def-eps-nash for the pair $(xhat, vy)$, so any feasible solution yields an $eps$-approximate Nash equilibrium. Moreover, applying @thm-lmm to any Nash equilibrium $(vx^*, vy^*)$ of the game, which always exists, shows that for at least one $k$-uniform $xhat$ the strategy $vy = vy^*$ is feasible. Hence the algorithm always produces an output.
+
+Row has $binom(m + k - 1, k) <= (m + k)^k$ $k$-uniform strategies, one for each multiset of $k$ actions from $[m]$, and each linear program can be solved in time polynomial in the size $s$ of the input. Choosing the smallest admissible $k$, so that $k = O(log n \/ eps^2)$, the total running time is therefore $(m + k)^(O(log n \/ eps^2)) dot.op op("poly")(s)$. For any fixed $eps$, this is $s^(O(log s))$, which is quasi-polynomial in the size of the game. This is much faster than the $2^(m + n)$ pairs of supports examined by exact support enumeration, at the price of finding only an approximate equilibrium.
 
 == $n$-player games
 #label("sec:support enumeration for n players")
