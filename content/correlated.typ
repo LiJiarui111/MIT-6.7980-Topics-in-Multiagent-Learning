@@ -97,17 +97,17 @@ From now on, we will assume that a two-player game has been defined, and we will
 
 $ vx^(*) in argmax_(vx in Delta (A_1)) min_(vy in Delta (A_2)) vx^top matU_1 vy . $
 
-The key insight is that this problem can be rewritten as
+The key insight is that, for a fixed $vx$, the inner minimum is attained at a pure action of Player 2. Indeed, $vx^top matU_1 vy = sum_(a_2 in A_2) y_(a_2) (vx^top matU_1 ve_(a_2))$ is an average of the $|A_2|$ numbers $vx^top matU_1 ve_(a_2)$, so it is never smaller than the smallest of them, and that value is attained by putting all the mass on the corresponding action. Hence $min_(vy in Delta (A_2)) vx^top matU_1 vy = min_(a_2 in A_2) vx^top matU_1 ve_(a_2)$, and introducing a variable $v$ for this minimum, the problem becomes
 
 $
-  cases(max_v v, upright("s.t.") v <= vx^top matU_1 ve_(a_2) quad forall a_2 in A_2, upright("") vone^top vx = 1, vx >= 0 .)
+  cases(max_(vx, v) v, upright("s.t.") v <= vx^top matU_1 ve_(a_2) quad forall a_2 in A_2, upright("") vone^top vx = 1, vx >= 0 .)
 $
 
-which is a linear program with a linear number of constraints in the number of actions of Player 2. We can use any linear programming solver to find such a solution. The #lecture-link("learning_intro", <sec-learning-zero-sum>)[self-play construction] gives more scalable methods to compute maxmin strategies from repeated play.
+For a fixed $vx$, the largest feasible $v$ is exactly $min_(a_2 in A_2) vx^top matU_1 ve_(a_2)$, so the optimal value of this linear program is the maxmin value, and the $vx$-part of any optimal solution is a maxmin strategy. The program has one constraint per action of Player 2, besides the simplex constraints. We can use any linear programming solver to find such a solution. The #lecture-link("learning_intro", <sec-learning-zero-sum>)[self-play construction] gives more scalable methods to compute maxmin strategies from repeated play.
 
 *Connection with linear programming*  It is worth pausing for a moment to appreciate some historical context. We started the proof by assuming von Neumann's minimax theorem, which we justified as a consequence of linear programming duality. However, historically, von Neumann did not have the luxury of linear programming to prove his theorem.
 
-- The proof of von Neumann's minimax theorem essentially hides an optimization duality argument. Indeed, we have the following:
+- The proof of von Neumann's minimax theorem essentially hides an optimization duality argument. Indeed, we have the following, where, by the same argument as above, each program needs only one constraint per pure action of the opponent:
 
   #align(center)[
 
@@ -121,9 +121,9 @@ which is a linear program with a linear number of constraints in the number of a
       [$min_(vy in Delta \( A_2 \)) max_(vx in Delta \( A_1 \)) vx^top matU_1 vy$],
 
       [$arrow.t.b$], [], [$arrow.t.b$],
-      [$ cases(max v, v <= vx^top matU_1 ve_(a_2) quad forall a_2, vone^top vx = 1, vx >= 0 .) $],
+      [$ cases(max_(vx, v) v, v <= vx^top matU_1 ve_(a_2) quad forall a_2, vone^top vx = 1, vx >= 0 .) $],
       [$limits(<-->)^(upright("  linear programming  "))_(upright("duality"))$],
-      [$ cases(min w, w >= ve_(a_1)^top matU_1 vy quad forall a_1, vone^top vy = 1, vy >= 0 .) $],
+      [$ cases(min_(vy, w) w, w >= ve_(a_1)^top matU_1 vy quad forall a_1, vone^top vy = 1, vy >= 0 .) $],
     )
 
   ]
