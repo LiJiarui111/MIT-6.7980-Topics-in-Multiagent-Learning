@@ -6,6 +6,32 @@
   instructor: [Prof. Constantinos Daskalakis (`costis@mit.edu`)],
 )
 
+// Define a reusable disclosure/toggle function
+#let toggle(title, body) = {
+  context if sys.inputs.at("target", default: none) == "html" or target() == "html" {
+    // Interactive element for the web
+    html.elem("details")[
+      #html.elem("summary")[*#title*]
+      #body
+    ]
+  } else {
+    // Static layout representation for PDFs (styled box)
+    block(
+      width: 100%,
+      stroke: 0.5pt + luma(150),
+      inset: 10pt,
+      radius: 4pt,
+      fill: luma(245),
+      [
+        #text(weight: "bold", title)
+        #v(4pt)
+        #line(length: 100%, stroke: 0.5pt + luma(200))
+        #body
+      ]
+    )
+  }
+}
+
 In previous lectures, we saw the basic game theory formalism, and some of the most fundamental equilibrium concepts, and their existence proofs. The #lecture-link("nfgs_nash", <sec-nash-existence>)[proof of Nash equilibrium existence] makes use of Brouwer's fixed point theorem, which does not immediately suggest an algorithm for computing Nash equilibria. On the other hand, we saw that the existence of Nash equilibrium in two-player zero-sum games can also be established using #lecture-link("correlated", <sec-zero-sum>)[strong linear programming duality], which suggests a polynomial-time algorithm for computing Nash equilibria in these games.
 
 Similarly, correlated and coarse correlated equilibria in general-sum games can also be computed in time polynomial in the game description using linear programming, as the equilibrium constraints can be written as a system of linear inequalities in the joint distribution over actions. Moreover, linear programming methods can be leveraged to obtain polynomial-time algorithms for certain families of what are called “succinct games,” wherein the payoffs are sparse or have other structure that makes an explicit representation of a joint distribution over actions super-polynomial in  size compared to the game's natural description. Still a correlated or coarse correlated equilibrium can be computed efficiently in many cases, using linear programming approaches such as #lecture-link("eah", <sec-minimax-algorithm>)[Ellipsoid Against Hope]~#citep(<papadimitriou2008computing>).
