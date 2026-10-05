@@ -92,7 +92,7 @@ The argument relies on the following concentration inequality.
   where the first inequality follows by averaging the column bounds with weights $vy^*$. This is Column's condition, completing the proof.
 ]
 
-@thm-lmm suggests the following algorithm. Fix an integer $k > 2 ln(2 n) \/ eps^2$. For each $k$-uniform strategy $xhat$ of Row, solve the linear program
+@thm-lmm suggests the following algorithm. Fix a rational tolerance $0 < eps <= 1$ and an integer $k > 2 ln(2 n) \/ eps^2$. For each $k$-uniform strategy $xhat$ of Row, solve the linear program
 
 $
   upright("find") quad & vy in RR^n \
@@ -105,7 +105,7 @@ and output $(xhat, vy)$ for the first $xhat$ whose linear program is feasible.
 
 Once $xhat$ is fixed, every constraint is linear in $vy$, so each of these programs is indeed a linear program. Its constraints are exactly the conditions of @def-eps-nash for the pair $(xhat, vy)$, so any feasible solution yields an $eps$-approximate Nash equilibrium. Moreover, applying @thm-lmm to any Nash equilibrium $(vx^*, vy^*)$ of the game, which always exists, shows that for at least one $k$-uniform $xhat$ the strategy $vy = vy^*$ is feasible. Hence the algorithm always produces an output.
 
-Row has $binom(m + k - 1, k) <= (m + k)^k$ $k$-uniform strategies, one for each multiset of $k$ actions from $[m]$, and each linear program can be solved in time polynomial in the size $s$ of the input. Choosing the smallest admissible $k$, so that $k = O(log n \/ eps^2)$, the total running time is therefore $(m + k)^(O(log n \/ eps^2)) dot.op op("poly")(s)$. For any fixed $eps$, this is $s^(O(log s))$, which is quasi-polynomial in the size of the game. This is much faster than the $2^(m + n)$ pairs of supports examined by exact support enumeration, at the price of finding only an approximate equilibrium.
+Row has $binom(m + k - 1, k) <= m^k$ $k$-uniform strategies, one for each multiset of $k$ actions from $[m]$. Each linear program can be solved in time polynomial in the game's encoding size $s$, the encoding length of $eps$, and $log k$. Choosing $k = O(log(2 n) \/ eps^2)$, the running time is therefore $m^(O(log(2 n) \/ eps^2))$ times this polynomial factor. For any fixed $eps$, this is $s^(O(log s))$, which is quasi-polynomial in the size of the game. This improves on enumerating all $2^(m + n)$ pairs of supports when the two players' action counts grow comparably, at the price of finding only an approximate equilibrium.
 
 == $n$-player games
 #label("sec:support enumeration for n players")
