@@ -228,6 +228,11 @@ It can break if the coloring is given as a description only. For example, if the
 
 The alternative is to inspect the improvement function and work out where the colors must clash, without following the path at all. No general technique for this is known. So a trichromatic triangle is guaranteed to exist, and is easy to check once found, but no polynomial-time algorithm is known for finding one in a grid described this way. This gap is made precise by #lecture-link("tfnp", <sec-end-of-line>)[the End-of-Line problem].
 
+
+#example[
+  The accompanying #link("https://colab.research.google.com/drive/1VyefBluGV8LUO3cj5zc8WJhNmqI9gAoV?usp=sharing")[notebook] puts this proof to work for two-player two-action games: it constructs the Sperner coloring induced by the players' best-response map and uses a trichromatic triangle to recover a Nash equilibrium. This gives a concrete computational view of the existence argument developed above.
+]
+
 = Beyond the unit square <sec-brouwer-general>
 
 We stated and proved Sperner's lemma for the two-dimensional grid, and used that to prove Brouwer's fixed point theorem for continuous functions mapping the unit square to itself.
