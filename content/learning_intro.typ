@@ -44,7 +44,7 @@ We have thus arrived at the following formalization.
   The goal for a $Phi$-regret minimizer is to guarantee that its $Phi$-regret grows asymptotically sublinearly as time $T$ increases, no matter the sequence of utility functions $u^((t))$.
 ]<defphirm>
 
-Calls to `NextStrategy` and `ObserveUtility` keep alternating to each other: first, the regret minimizer will output a point $vx^((1))$, then it will received feedback $u^((1))$ from the environment, then it will output a new point $vx^((2))$, and so on.
+Calls to `NextStrategy` and `ObserveUtility` keep alternating to each other: first, the regret minimizer will output a point $vx^((1))$, then it will receive feedback $u^((1))$ from the environment, then it will output a new point $vx^((2))$, and so on.
 The decision making encoded by the regret minimizer is _online_, in the sense that at each time $t$, the output of the regret minimizer can depend on the prior outputs $vx^((1)), ...,vx^((t-1))$ and corresponding observed utility functions $u^((1)),...,u^((t-1))$, but no information about future utilities is available.
 
 == Notable choices of transformations $Phi$ <sec-regret-transformations>
@@ -159,7 +159,7 @@ We can summarize the process pictorially as follows.
   alt: "Self-play flow: two regret minimizers exchange strategies and utility feedback.",
 ))
 
-A well known folk theorem establish that the pair of average strategies produced by the regret minimizers up to any time $T$ converges to a saddle point of (@bspp), where convergence is measured via the _saddle point gap_
+A well known folk theorem establishes that the pair of average strategies produced by the regret minimizers up to any time $T$ converges to a saddle point of (@bspp), where convergence is measured via the _saddle point gap_
 $
   0 <= gamma(vx, vy) := (max_(xhat in cX) {xhat^top U vy} - vx^top U vy) + (
     vx^top U vy - min_(yhat in cY) {vx^top U yhat}
@@ -246,7 +246,7 @@ The very _existence_ of regret minimizers is a powerful enough fact to imply the
 The previous result is in fact a direct corollary of the more general connection between $Phi$-regret minimization and the set of coarse-correlated equilibria in multiplayer general-sum games. We present a general form of this connection in the next theorem.
 
 #theorem[Formal version of #ref(<thmce-informal>, supplement: "Theorems") and #ref(<thmcce-informal>, supplement: "")][
-  Let $vx^((t))_1, ..., vx^((t))_n$ the strategies played by the players at any time $t$, and let $Phi"-Reg"_i^((t))$ denote the $Phi$-regret incurred by Player $i$ up to time $t$. Consider now the average correlated distribution of play up to any time $T$, that is, the distribution $vmu^((T))$ that selects a time $overline(t)$ uniformly at random from the set ${1,...,T }$, and selects actions $(a_1,..., a_n)$ independendently according to the $vx_i^((overline(t)))$, that is,
+  Let $vx^((t))_1, ..., vx^((t))_n$ be the strategies played by the players at any time $t$, and let $Phi"-Reg"_i^((t))$ denote the $Phi$-regret incurred by Player $i$ up to time $t$. Consider now the average correlated distribution of play up to any time $T$, that is, the distribution $vmu^((T))$ that selects a time $overline(t)$ uniformly at random from the set ${1,...,T }$, and selects actions $(a_1,..., a_n)$ independently according to the $vx_i^((overline(t)))$, that is,
   $
     vmu^((T)) := 1 / T sum_(t=1)^T vx_1^((t))⊗...⊗ vx_n^((t)).
   $
