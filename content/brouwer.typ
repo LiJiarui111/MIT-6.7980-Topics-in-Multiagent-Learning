@@ -228,9 +228,7 @@ We stated and proved Sperner's lemma for the two-dimensional grid, and used that
 
 = Necessity of the hypotheses <sec-brouwer-hypotheses>
 
-Brouwer's fixed point theorem asks for a _continuous_ function mapping a _nonempty_, _compact_, _convex_ set _into itself_. Every one of those hypotheses is necessary: drop any single one while keeping the rest, and the theorem doesn't hold. This demonstrates these failures with counterexamples, all of them one- or two-dimensional. Since compactness of a subset of $RR^d$ means closed _and_ bounded, we treat those two halves separately.
-
-Note that a fixed point of $f$ is a point satisfying $f(x) = x$. For a function of one variable this condition can be described as the points where the graph of $f$ meets the diagonal. Each example below comes with a picture of its $f$ against the diagonal.
+Brouwer's fixed point theorem asks for a _continuous_ function mapping a _nonempty_, _compact_, _convex_ set _into itself_. Each of these hypotheses is necessary, which we demonstrate with counterexamples, all of them one- or two-dimensional. Since compactness of a subset of $RR^d$ means closed _and_ bounded, we treat those two halves separately.
 
 // Keep the picture with the text it explains.
 #block(breakable: false)[
@@ -293,19 +291,6 @@ Note that a fixed point of $f$ is a point satisfying $f(x) = x$. For a function 
     #align(center)[#image("figures/brouwer/convexity_relaxed.svg", width: 198pt)]
   ]
 ]
-
-// Keep the picture with the text it explains.
-#block(breakable: false)[
-  #example[dropping the self-map condition][
-    #wrapped-figure(side: right, text-width: 66%)[
-      Take $K = [0,1]$ once more, nonempty, compact, and convex, and let $f(x) := x + 1$. This function is continuous, but its image $[1,2]$ leaves $K$, and $f(x) = x$ again forces $1 = 0$. Without the requirement that $f$ map $K$ into itself, nothing forces the graph of $f$ to meet the diagonal.
-    ][
-      #image("figures/brouwer/hyp_selfmap.svg", width: 100pt)
-    ]
-  ]
-]
-
-Nonemptiness is the degenerate case: the empty set contains no points, hence no fixed points, while every other hypothesis holds vacuously.
 
 #changelog[
   - Sep 24, 2025: fixed two typos (thanks Eric Yang Yu!)
