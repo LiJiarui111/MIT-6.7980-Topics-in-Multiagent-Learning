@@ -389,9 +389,100 @@ We make some final remarks about the Lemke-Howson algorithm.
 
 #toggle[Reveal Solution to #ref(<S01-ImprovementP3.3>)][
   #proof[
-  Consider an arbitrary game $cal(G)$ with $n$ players.
+  Consider an two-player game $cal(G):= (R,C)$. Suppose we are given the supports $S_R$ and $S_C$ and know that there are finitely many NE with these supports. We will prove that there must be only one such NE.
 
-  TODO
+  Assume for sake of contradiction that there are at least two NE $(vx_1, vy_1)$ and $(vx_2, vy_2)$ with supports $S_R$ and $S_C$.
+
+  For any $t in [0,1]$, define
+  $
+    bold(x)_t := t bold(x)_1 + (1-t) bold(x)_2 quad upright("and") quad
+    bold(y)_t := t bold(y)_1 + (1-t) bold(y)_2.
+  $
+
+  Since both NE have the same supports, for every $t in (0,1)$ $vx_t$ and $vy_t$ also have the same supports.
+
+  We now show that $(bold(x)_t, bold(y)_t)$ is also a Nash equilibrium.
+
+  Since $(bold(x)_1, bold(y)_1)$ and $(bold(x)_2, bold(y)_2)$ are Nash equilibria, every row in $S_R$ is a best response to both $bold(y)_1$ and $bold(y)_2$. Thus, there exist $u_1,u_2 in bb(R)$ such that
+  $
+  R_(S_R,S_C) bold(y)_1 = u_1 bold(1)
+  quad
+  upright("and")
+  quad
+  R_(S_R,S_C) bold(y)_2 = u_2 bold(1).
+  $
+
+  where $R_(S_R,S_C)$ is the payoff matrix restricted to the rows and columns of the supports.
+
+  By linearity in the opponent's mixed strategy,
+  $
+  R_(S_R,S_C) bold(y)_t
+  = t R_(S_R,S_C) bold(y)_1
+  + (1-t) R_(S_R,S_C) bold(y)_2
+  = (t u_1 + (1-t)u_2) bold(1).
+  $
+
+  Hence every row in $S_R$ is a best response to $bold(y)_t$.
+
+  Similarly, because every column in $S_C$ is a best response to both $bold(x)_1$ and $bold(x)_2$, we find that every column in $S_C$ is a best response to the linear combination $bold(x)_t$.
+
+  Finally, since $bold(x)_t$ and $bold(y)_t$ assign probability zero to actions outside $S_R$ and $S_C$, respectively, and every action in their supports is a best response to the opponent's strategy, $(bold(x)_t, bold(y)_t)$ is a Nash equilibrium.
+
+  Thus, for every $t in (0,1)$, there is a Nash equilibrium with supports $S_R$ and $S_C$. Since the two original equilibria are distinct, these equilibria are distinct for infinitely many values of $t$.
+
+  This contradicts the assumption that there are only finitely many Nash equilibria with supports $S_R$ and $S_C$. Therefore, there can be only one Nash equilibrium with the given supports in a two-player game.
+
+  \
+
+  In contrast, for $n$-player games with $n >= 3$, the analogous statement is *false*.
+  That is, it is possible to have finitely many Nash equilibria with the same supports, but more than one such equilibrium.
+
+  The key difference from the two-player case is that, in an $n$-player
+  game, a player's expected payoff is generally *multilinear* in the
+  other players' mixed strategies. Thus, the indifference conditions are
+  not linear in all players' strategies simultaneously, and they may have
+  multiple isolated solutions.
+
+  We present a counterexample in the case of $n=3$. Consider the following symmetric three-player game with two actions,
+  $0$ and $1$. For a player, let the difference between the payoff from
+  action $1$ and the payoff from action $0$ depend on the number $k$ of
+  the other two players who choose action $1$. Define
+
+  $ d(0) = 3, quad d(1) = -5, quad d(2) = 23. $
+
+  Suppose that all three players independently choose action $1$ with
+  probability $p$. The expected payoff difference between choosing action
+  $1$ and choosing action $0$ is then
+
+  $ 3(1-p)^2 - 5(2p(1-p)) + 23p^2. $
+
+  Simplifying gives
+
+  $ 3 - 16p + 16p^2
+    = 16 (p - 1/4)(p - 3/4). $
+
+  Therefore, a player is indifferent between the two actions when
+
+  $ p = 1/4 quad "or" quad p = 3/4. $
+
+  By symmetry, this gives two distinct completely mixed Nash equilibria:
+
+  $ (1/4, 1/4, 1/4)
+    quad "and" quad
+    (3/4, 3/4, 3/4). $
+
+  Both equilibria have the same support: every player assigns positive
+  probability to both actions. Thus, letting $S_i = {0, 1}$ for each
+  player $i$, there are at least two Nash equilibria with the same
+  support profile $(S_1, S_2, S_3)$.
+
+  Moreover, these equilibria are isolated, since the indifference
+  condition has the two distinct roots $p = 1/4$ and $p = 3/4$ rather
+  than holding on an interval.
+
+  Hence, unlike the two-player case, finiteness of the number of Nash
+  equilibria with a given support does *not* imply uniqueness when there
+  are three or more players.
 
   ]
 ]
