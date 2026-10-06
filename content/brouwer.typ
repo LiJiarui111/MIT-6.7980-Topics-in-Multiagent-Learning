@@ -228,7 +228,7 @@ We stated and proved Sperner's lemma for the two-dimensional grid, and used that
 
 = Necessity of the hypotheses <sec-brouwer-hypotheses>
 
-Brouwer's fixed point theorem asks for a _continuous_ function mapping a _nonempty_, _compact_, _convex_ set _into itself_. Each of these hypotheses is necessary, which we demonstrate with counterexamples, all of them one- or two-dimensional. Since compactness of a subset of $RR^d$ means closed _and_ bounded, we treat those two halves separately.
+_Continuity_, _compactness_, and _convexity_ are each necessary in Brouwer's theorem, as the following one- and two-dimensional counterexamples show. Since compactness in $RR^d$ means closed _and_ bounded, we treat those halves separately.
 
 // Keep the picture with the text it explains.
 #block(breakable: false)[
