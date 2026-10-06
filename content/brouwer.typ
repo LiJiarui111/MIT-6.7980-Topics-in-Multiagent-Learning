@@ -18,7 +18,7 @@ Towards an answer, we will provide a proof of Brouwer's theorem via another exis
 
 #align(center)[
 
-  _Brouwer's fixed point theorem is a corollary of the fact that any directed graph has an even number of odd-degree vertices.
+  _Brouwer's fixed point theorem is a corollary of the fact that any directed graph has an even number of odd-degree vertices._
 
 ]
 
@@ -226,10 +226,6 @@ At this point, the proof of Sperner's lemma is immediate. A graph in which each 
 
 We stated and proved Sperner's lemma for the two-dimensional grid, and used that to prove Brouwer's fixed point theorem for continuous functions mapping the unit square to itself. There is a $d$-dimensional generalization of Sperner's lemma, which can be used to prove Brouwer's fixed point theorem for continuous functions mapping $\[ 0 \, 1 \]^d$ to itself. In the high-dimensional  case, a $d$-dimensional grid is partitioned into simplices, the $d$-dimensional analog of triangles, without introducing any more vertices other than those in the grid #citep(<kuhn1960combinatorial>). The vertices of the grid are now colored with $d + 1$ colors, $0 \, 1 \, ... \, d$. Now, a coloring is valid if color $i$ is not present in facet $x_i = 0$, for all $i = 1 \, ... \, d$, and color $0$ is not present in all facets $x_i = 1$, for all $i = 1 \, ... \, d$. Sperner's lemma guarantees the existence of a simplex that has all $d + 1$ colors on its $d + 1$ vertices. Using the $d$-dimensional version of Sperner's lemma to prove Brouwer's fixed point theorem for continuous functions mapping the $d$-dimensional hypercube to itself is analogous to the $d = 2$ case. Finally, given Brouwer's fixed point theorem for the hypercube it is not hard to prove it for other convex and compact sets. Given a function defined on an arbitrary convex and compact set, one can first affinely transform the coordinate system so the set lies inside the unit hypercube. Then the function can be extended outside of the set by first projecting points of the hypercube to the set and then applying the function. This will not introduce any spurious fixed points.
 
-= Bibliography for this lecture
-
-#lec_bibliography("meta/refs.bib", title: none)
-
 = Problems <sec-brouwer-problems>
 
 #exercise[Splitting the Rent][
@@ -326,6 +322,10 @@ _Continuity_, _compactness_, and _convexity_ are each necessary in Brouwer's the
     #align(center)[#image("figures/brouwer/convexity_relaxed.svg", width: 198pt)]
   ]
 ]
+
+= Bibliography for this lecture
+
+#lec_bibliography("meta/refs.bib", title: none)
 
 #changelog[
   - Sep 24, 2025: fixed two typos (thanks Eric Yang Yu!)
