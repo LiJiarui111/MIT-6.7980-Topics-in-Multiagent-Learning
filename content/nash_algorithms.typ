@@ -399,7 +399,7 @@ We make some final remarks about the Lemke-Howson algorithm.
     bold(y)_t := t bold(y)_1 + (1-t) bold(y)_2.
   $
 
-  Since both NE have the same supports, for every $t in (0,1)$ $vx_t$ and $vy_t$ also have the same supports.
+  Since both NE have the same supports, for every $t in (0,1)$ $vx_t$ and $vy_t$ also have the same supports, since the coordinates corresponding to the common support will be strictly positive for linear combinations.
 
   We now show that $(bold(x)_t, bold(y)_t)$ is also a Nash equilibrium.
 
@@ -476,13 +476,10 @@ We make some final remarks about the Lemke-Howson algorithm.
   player $i$, there are at least two Nash equilibria with the same
   support profile $(S_1, S_2, S_3)$.
 
-  Moreover, these equilibria are isolated, since the indifference
-  condition has the two distinct roots $p = 1/4$ and $p = 3/4$ rather
-  than holding on an interval.
+  It remains to verify that there are no other completely mixed equilibria. If we fully solve for NE, we would find that these are in fact the only NE for this support profile.
 
   Hence, unlike the two-player case, finiteness of the number of Nash
   equilibria with a given support does *not* imply uniqueness when there
   are three or more players.
-
   ]
 ]
