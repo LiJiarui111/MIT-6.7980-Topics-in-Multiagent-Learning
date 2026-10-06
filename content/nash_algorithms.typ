@@ -109,7 +109,7 @@ $ B dot.op L dot.op \( n k \)^(O \( n k \)) . $
 Recall that the bits required to represent a $n$-player game with $k$ actions per player is $L dot.op n dot.op k^n$. So the running time of our algorithm could be exponential in the description of the game, e.g.~when $n$ stays constant and $k$ goes to infinity. On the other hand, the running time is quasi-polynomial if the growth of $k$ is bounded by a polynomial in $n$.#footnote[A _quasi-polynomial-time algorithm_ for some computational task is an algorithm that solves an instance $Pi$ of the task in time $2^(op("poly") \( log d \( Pi \) \))$, where $d \( Pi \)$ is the description complexity of instance $Pi$. If the polynomial in the exponent of the running time is of degree $1$ the algorithm is called _polynomial-time_.]
 
 #exercise[
-  For a two-player game, given the supports $S_C$ and $S_R$, if there are finitely many NE with that support, must there be only one? What about an n-player game?
+  For a two-player game, given the supports $S_C$ and $S_R$, if there are finitely many Nash equilibria with that support, must there be only one? What about an n-player game?
 ] <S01-ImprovementP3.3>
 
 = Algorithms for Symmetric Games
@@ -389,9 +389,9 @@ We make some final remarks about the Lemke-Howson algorithm.
 
 #toggle[Reveal Solution to #ref(<S01-ImprovementP3.3>)][
   #proof[
-  Consider an two-player game $cal(G):= (R,C)$. Suppose we are given the supports $S_R$ and $S_C$ and know that there are finitely many NE with these supports. We will prove that there must be only one such NE.
+  Consider an two-player game $cal(G):= (R,C)$. Suppose we are given the supports $S_R$ and $S_C$ and know that there are finitely many Nash equilibria with these supports. We will prove that there must be only one such Nash equilibrium.
 
-  Assume for sake of contradiction that there are at least two NE $(vx_1, vy_1)$ and $(vx_2, vy_2)$ with supports $S_R$ and $S_C$.
+  Assume for sake of contradiction that there are at least two Nash equilibria $(vx_1, vy_1)$ and $(vx_2, vy_2)$ with supports $S_R$ and $S_C$.
 
   For any $t in [0,1]$, define
   $
@@ -399,7 +399,7 @@ We make some final remarks about the Lemke-Howson algorithm.
     bold(y)_t := t bold(y)_1 + (1-t) bold(y)_2.
   $
 
-  Since both NE have the same supports, for every $t in (0,1)$ $vx_t$ and $vy_t$ also have the same supports, since the coordinates corresponding to the common support will be strictly positive for linear combinations.
+  Since both Nash equilibria have the same supports, for every $t in (0,1)$ $vx_t$ and $vy_t$ also have the same supports, since the coordinates corresponding to the common support will be strictly positive for linear combinations.
 
   We now show that $(bold(x)_t, bold(y)_t)$ is also a Nash equilibrium.
 
@@ -448,38 +448,45 @@ We make some final remarks about the Lemke-Howson algorithm.
   action $1$ and the payoff from action $0$ depend on the number $k$ of
   the other two players who choose action $1$. Define
 
-  $ d(0) = 3, quad d(1) = -5, quad d(2) = 23. $
+  $ d(0) = 3, quad d(1) = -5, quad d(2) = 3. $
 
-  Suppose that all three players independently choose action $1$ with
-  probability $p$. The expected payoff difference between choosing action
-  $1$ and choosing action $0$ is then
+  Suppose that player $i$ independently chooses action $1$ with
+  probability $p_i$. The expected payoff difference between choosing action
+  $1$ and choosing action $0$ for player 1 is then
 
-  $ 3(1-p)^2 - 5(2p(1-p)) + 23p^2. $
+  $ 3(1-p_2)(1-p_3) - 5p_2(1-p_3) - 5(1-p_2)p_3 + 3p_2p_3. $
 
-  Simplifying gives
+  Player 1 satisfies the conditions for Nash equilibrium when they are indifferent to the action they take, in other words, when
 
-  $ 3 - 16p + 16p^2
-    = 16 (p - 1/4)(p - 3/4). $
+  $ 3 - 8p_2 - 8p_3 + 16p_2p_3 = 0. $
 
-  Therefore, a player is indifferent between the two actions when
+  Similarly, the other two players require
 
-  $ p = 1/4 quad "or" quad p = 3/4. $
+  $ 3-8p_1-8p_3+16p_1p_3&=0 \
+    3-8p_1-8p_2+16p_1p_2&=0. $
 
-  By symmetry, this gives two distinct completely mixed Nash equilibria:
+  Subtracting pairs of equations yields the equations
+
+  $ (p_1-p_2)(1-2p_3)=0 \
+    (p_2-p_3)(1-2p_1)=0 \
+    (p_3-p_1)(1-2p_2)=0. $
+
+  Suppose some player chooses to use a mixed strategy with probability $1/2$. Without loss of generality suppose $p_1 = 1/2$. Then the original expected payoff condition for player 2 reduces to
+
+  $ 3-8p_1-8p_3+16p_1p_3& = -1 $
+
+  which contradicts the indifference condition. Thus, there are no Nash equilibria when $p_i = 1/2$, so for Nash equilibrium to hold, we must have $p_1 = p_2 = p_3 = p$, In this case, the indifference conditions reduce to 
+
+  $ 3 - 16p + 16 p^2 = 0, $
+
+  which yields solutions $p = 1/4$ or $p = 3/4. $
+
+  This gives two distinct completely mixed Nash equilibria:
 
   $ (1/4, 1/4, 1/4)
     quad "and" quad
     (3/4, 3/4, 3/4). $
 
-  Both equilibria have the same support: every player assigns positive
-  probability to both actions. Thus, letting $S_i = {0, 1}$ for each
-  player $i$, there are at least two Nash equilibria with the same
-  support profile $(S_1, S_2, S_3)$.
-
-  It remains to verify that there are no other completely mixed equilibria. If we fully solve for NE, we would find that these are in fact the only NE for this support profile.
-
-  Hence, unlike the two-player case, finiteness of the number of Nash
-  equilibria with a given support does *not* imply uniqueness when there
-  are three or more players.
+  Both equilibria have the same support, as every player assigns positive probability to both actions. Furthermore, we have proven that there are no further Nash equilibria for this game. Hence, unlike the two-player case, finiteness of the number of Nash equilibria with a given support does *not* imply uniqueness when there are three or more players.
   ]
 ]
