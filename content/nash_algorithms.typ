@@ -180,7 +180,7 @@ Suppose that we are given an arbitrary two-player game $cal(G)_1 := \( R \, C \)
 
 #exercise[
   Show that computing a Nash equilibrium of an arbitrary game $cal(G)$ can be polynomial-time reduced to the problem of computing a Nash equilibrium of a game $cal(G)'$ whose payoff entries are all strictly positive.
-]
+] <S01-ImprovementP3.1>
 
 Next, we will construct a $\( m + n \) times \( m + n \)$ symmetric game $cal(G)_2$, with the following payoff matrices in block form:
 
@@ -489,4 +489,65 @@ We make some final remarks about the Lemke-Howson algorithm.
 
   Both equilibria have the same support, as every player assigns positive probability to both actions. Furthermore, we have proven that there are no further Nash equilibria for this game. Hence, unlike the two-player case, finiteness of the number of Nash equilibria with a given support does *not* imply uniqueness when there are three or more players.
   ]
+]
+== Solution to #ref(<S01-ImprovementP3.1>)
+
+#toggle[Reveal Solution to #ref(<S01-ImprovementP3.1>)][
+  #proof[
+  Consider an arbitrary game $cal(G)$ with $n$ players. We will prove that the problem of computing a Nash equilibrium of $cal(G)$ polynomial-time reduces to the problem of computing a Nash equilibrium of a game $cal(G)'$ whose payoff entries are all strictly positive.
+  
+  Let the $i$th player in $cal(G)$ choose actions from the set $A_i$ and let $u_1,u_2,...,u_n$ be the payoff functions, where
+  
+  $
+  u_i : A_1 times dots.h.c times A_n -> bb(R).
+  $
+  
+ We also reuse the letter $u_i$ to denote the expected utility when players play according to strategies $bold(x)_1,...,bold(x)_n$.
+  
+Then for any Nash equilibrium $(bold(x)_1,...,bold(x)_n)$, by definition,
+
+  $
+    forall i in \[ n \] \, vx'_i in Delta (A_i) \, #h(2em) #h(2em) u_i (vx'_i \, vx_(- i)) <= u_i (vx_1 \, ... \, vx_n) .
+  $
+
+  The key observation is that the Nash equilibrium condition is equivalent up to a scalar translation of the utility function. For each payoff function $u_i$, let $p_i = min(u_i)$ over all payoffs in $u_i$. We will define a new normal-form game $cal(G)'$ with the same players, same actions, and new payoff functions
+  
+  $
+  forall i in \[ n \] \, #h(2em) #h(2em)u_i ' = u_i - p_i + 1.
+  $
+
+  We note that $cal(G)'$ can be defined in polynomial-time given $cal(G)$, and all payoff entries of $cal(G)'$ are strictly positive because
+
+  $
+  min(u_i ') = min(u_i) - p_i+1 = 1.
+  $
+
+  Furthermore,
+
+  $
+  forall i in \[ n \] \, vx'_i in Delta (A_i) \, #h(2em) #h(2em) u_i (vx'_i \, vx_(- i)) &<= u_i (vx_1 \, ... \, vx_n) \
+  <==> u_i (vx'_i \, vx_(- i)) - p_i+1 &<= u_i (vx_1 \, ... \, vx_n) - p_i+1 \
+  <==> u_i ' (vx'_i \, vx_(- i)) &<= u_i ' (vx_1 \, ... \, vx_n),
+  $
+  
+  so every Nash equilibrium of $cal(G)$ is a Nash equilibrium of $cal(G)'$ and vice versa. Thus, computing a Nash equilibrium of an arbitrary game $cal(G)$ can be polynomial-time reduced to the problem of computing a Nash equilibrium of a game $cal(G')$ whose payoff entries are all strictly positive.
+  ]
+
+  Potential point of confusion: One might ask if we can adjust all of our utility functions by a constant so that all entries are positive, then can we not use the same trick make all utilities average to zero, and thus reduce all normal-form games to zero-sum games?
+
+  Obviously, the answer is no, we cannot use this trick to reduce all normal form games to zero-sum games. This is because zero-sum games are not defined by the average utility of a single player being zero, but rather by the payoffs summed over all players being zero.
+
+  As an example, suppose we take a very simple two player game $cal(G):=(R,C)$, where the first player has one action and the second player has two actions, with the payoff matrices
+  $
+    R := mat(delim: "(", 1 \, -1 ) #h(2em) C := mat(delim: "(", 0 \, 1 ).
+  $
+
+  Now obviously this is not much of a game, as the outcome is completely controlled by the column player, but we can also see using this example that there is no way to convert this game to a zero-sum game simply by adding a constant to the payoff. By adding any arbitrary constants $r$ and $c$ to the payoff matrices, we can get a game $cal(G)':= (R',C')$ with
+  $
+    R' := mat(delim: "(", 1+r \, -1+r ) #h(2em) C' := mat(delim: "(", c \, 1+c ),
+  $
+  which has the same Nash equilibria as $cal(G)$. However, in order for $cal(G)'$ to be a zero-sum game, we would require $R' + C' =0$, which we find is not possible for any constants $r, c$.
+
+  Our constants shift every payoff of a given player by the same amount, and therefore preserve that player's preferences over strategies. In this example, choosing \(c=-1/2\) makes the column player's average of the payoff entries zero (the row player's average of payoff entries is already zero). Nevertheless, the resulting game is not zero-sum, which requires $sum_i u_i=0$, that is, the SUM of all payoffs of all players to be zero for any selection of pure strategies.
+
 ]
