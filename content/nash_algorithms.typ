@@ -286,7 +286,7 @@ The goal of the Lemke-Howson algorithm is to find a democracy in the given polyt
 )[
   - *Data:* the polytope $P := { vz : R vz <= vone \, vz >= 0 }$ and the special action $n$.
   - *Result:* a non-zero democracy of $P$.
-  + $t <- 0$, #h(.5em) $vv_0 <- \( 0 \, 0 \, ... \, 0 \)$
+  + $t <- 0 \, quad vv_0 <- \( 0 \, 0 \, ... \, 0 \)$
   + $u <- \( z_n >= 0 \)$ #line-label(<line-lh-special>)
   + *loop*
     + $E <-$ the edge of $P$ obtained by un-tightening $u$ at $vv_t$, keeping tight every other inequality that is tight at $vv_t$ #line-label(<line-lh-edge>)
