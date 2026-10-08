@@ -295,7 +295,7 @@ The goal of the Lemke-Howson algorithm is to find a democracy in the given polyt
     + *if* $vv_t$ is a democracy
       + *return* $vv_t$
     + $j <-$ the action represented twice at $vv_t$ #line-label(<line-lh-double>)
-    + $u <-$ the inequality representing action $j$ that was already tight at $vv_(t-1)$ (not the one that became tight upon reaching $vv_t$). #line-label(<line-lh-pivot>)
+    + $u <-$ the inequality representing action $j$ that was already tight at $vv_(t-1)$ (and not the one that became tight upon reaching $vv_t$). #line-label(<line-lh-pivot>)
 ] <algo-lemke-howson>
 
 Each pivot is well defined. By non-degeneracy exactly $n$ inequalities are tight at every vertex, so the un-tightening in @line-lh-edge always traverses an edge of the polytope. At $vv_0$ the tight inequalities are exactly $z_1 >= 0 \, ... \, z_n >= 0$, so there are exactly $n$ edges adjacent to $vv_0$, one per action, and @line-lh-special selects the one belonging to the special action $n$.
