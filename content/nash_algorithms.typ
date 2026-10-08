@@ -287,22 +287,22 @@ The goal of the Lemke-Howson algorithm is to find a democracy in the given polyt
   - *Data:* the polytope $P := { vz : R vz <= vone \, vz >= 0 }$ and the special action $n$.
   - *Result:* a non-zero democracy of $P$.
   + $t <- 0 \, quad vv_0 <- \( 0 \, 0 \, ... \, 0 \)$
-  + $u <- \( z_n >= 0 \)$ #line-label(<line-lh-special>)
+  + $u <- \( z_n >= 0 \)$ 
   + *loop*
-    + $E <-$ the edge of $P$ obtained by un-tightening $u$ at $vv_t$, keeping tight every other inequality that is tight at $vv_t$ #line-label(<line-lh-edge>)
+    + $E <-$ the edge of $P$ obtained by un-tightening $u$ at $vv_t$, keeping tight every other inequality that is tight at $vv_t$ 
     + $vv_(t + 1) <-$ the endpoint of $E$ other than $vv_t$
     + $t <- t + 1$
     + *if* $vv_t$ is a democracy
       + *return* $vv_t$
-    + $j <-$ the action represented twice at $vv_t$ #line-label(<line-lh-double>)
-    + $u <-$ the inequality representing action $j$ that was already tight at $vv_(t-1)$ (and not the one that became tight upon reaching $vv_t$). #line-label(<line-lh-pivot>)
+    + $j <-$ the action represented twice at $vv_t$ 
+    + $u <-$ the inequality representing action $j$ that was already tight at $vv_(t-1)$ (and not the one that became tight upon reaching $vv_t$). 
 ] <algo-lemke-howson>
 
-Each pivot is well defined. By non-degeneracy exactly $n$ inequalities are tight at every vertex, so the un-tightening in @line-lh-edge always traverses an edge of the polytope. At $vv_0$ the tight inequalities are exactly $z_1 >= 0 \, ... \, z_n >= 0$, so there are exactly $n$ edges adjacent to $vv_0$, one per action, and @line-lh-special selects the one belonging to the special action $n$.
+Each pivot is well defined. By non-degeneracy exactly $n$ inequalities are tight at every vertex, so the un-tightening in the edge-update step in @algo-lemke-howson always traverses an edge of the polytope. At $vv_0$ the tight inequalities are exactly $z_1 >= 0 \, ... \, z_n >= 0$, so there are exactly $n$ edges adjacent to $vv_0$, one per action, and the initialization step in @algo-lemke-howson selects the one belonging to the special action $n$.
 
-The choice made in @line-lh-pivot never retraces the step just taken. Both $z_j >= 0$ and $ve_j^T R vz <= 1$ are tight at $vv_t$, and un-tightening the one that just became tight would define the same edge $\( vv_(t - 1) vv_t \)$ that brought us to $vv_t$. Un-tightening the other inequality representing action $j$ makes progress instead.
+The choice made in the pivot step in @algo-lemke-howson never retraces the step just taken. Both $z_j >= 0$ and $ve_j^T R vz <= 1$ are tight at $vv_t$, and un-tightening the one that just became tight would define the same edge $\( vv_(t - 1) vv_t \)$ that brought us to $vv_t$. Un-tightening the other inequality representing action $j$ makes progress instead.
 
-Finally, @line-lh-double is justified by the following property of the walk: whenever the algorithm reaches it, all actions in ${ 1 \, ... \, n - 1 }$ are represented at $vv_t$, exactly one of them is represented twice, and the special action $n$ is not represented at all.
+Finally, the selection of the doubly represented action in @algo-lemke-howson is justified by the following property of the walk: whenever the algorithm reaches it, all actions in ${ 1 \, ... \, n - 1 }$ are represented at $vv_t$, exactly one of them is represented twice, and the special action $n$ is not represented at all.
 
 At $vv_1$ the property holds whenever $vv_1$ is not a democracy. If $vv_1$ is a democracy, the algorithm has already returned. The inequalities kept tight on the way from $vv_0$ are $z_1 >= 0 \, ... \, z_(n - 1) >= 0$, so actions $1$ through $n - 1$ stay represented, while $z_n >= 0$ is no longer tight. Exactly one new inequality becomes tight. If it is $ve_n^T R vz <= 1$, then action $n$ is represented and $vv_1$ is a democracy. Otherwise it is $ve_j^T R vz <= 1$ for some $j != n$, so action $j$ is represented twice and action $n$ is not represented at all.
 
