@@ -64,6 +64,14 @@ Strategy and feedback are two independent choices. The strategy axis is about wh
 The size of the set of transformations $Phi$ considered by the player defines
 a natural notion of how "rational" the agent is. There are several choices of interest for $Phi$ for a normal-form strategy space $cX = Delta(A)$.
 - $Phi =$ set of _all_ stochastic matrices, mapping $Delta(A) -> Delta(A)$. This notion of $Phi$-regret is known under the name _swap regret_. This notion is related to convergence to the set of #lecture-link("correlated", <def-ce>)[correlated equilibria].
+  For example, in rock-paper-scissors, swap regret can compare the actions actually played against replacing every action at once, such as rock with paper, scissors with rock, and paper with scissors.
+  In matrix form, $Phi^"swap" = {vx |-> Q vx : Q >= 0, thin vone^top Q = vone^top}$, that is, $Q$ is column-stochastic: column $a$ of $Q$ gives the replacement distribution for action $a$.
+
+  #align(center, image(
+    "figures/learning_intro/swap_regret.svg",
+    width: 12.6cm,
+    alt: "Rock-paper-scissors timeline: every action actually played at times 1 through 7 is replaced, rock by paper, scissors by rock, and paper by scissors.",
+  ))
 - $Phi =$ set of all "probability mass transport" on $cX$, defined as
   $Phi = {phi.alt_(a-> b)}_(a, b in A)$, where
   $
@@ -76,6 +84,13 @@ a natural notion of how "rational" the agent is. There are several choices of in
     )
   $
   This is known as _internal regret_.
+  For example, in rock-paper-scissors, the transformation $phi.alt_("scissors" -> "rock")$ compares the actions actually played against playing rock whenever scissors was played, leaving every other action unchanged.
+
+  #align(center, image(
+    "figures/learning_intro/internal_regret.svg",
+    width: 12.6cm,
+    alt: "Rock-paper-scissors timeline: the comparator copies the actions actually played at times 1 through 7, except that each scissors is switched to rock.",
+  ))
   #theorem[Informal; formal version in @thmce-formal][
     When all agents in a multiplayer general-sum normal-form game play so that their internal or swap regret grows sublinearly, their average correlated distribution of play converges to the set of _correlated equilibria_ of the game.
   ] <thmce-informal>
@@ -109,6 +124,13 @@ The special case where $Phi$ is chosen to be the set of constant transformations
 ] <def-external-regret>
 Again, the goal for a regret minimizer is to ensure its cumulative regret $"Reg"^((T))$ grows sublinearly in $T$.
 
+For example, in rock-paper-scissors, external regret compares the actions actually played against always playing the same fixed strategy, such as always playing rock.
+
+#align(center, image(
+  "figures/learning_intro/external_regret.svg",
+  width: 12.6cm,
+  alt: "Rock-paper-scissors timeline: the actions actually played at times 1 through 7 are each replaced by the constant comparator rock.",
+))
 #strong[Terminological remark.] The name _regret minimizer_ is a bit of a misnomer. The goal is not to make regret as small as possible, but to guarantee that it grows sublinearly in $T$. A regret minimizer is an online algorithm that chooses its strategy for each round using the strategies played and the utility functions observed so far. It is not required to choose the strategy that would have been best in hindsight, and it is not required to minimize the regret accumulated up to round $t$. What matters is the regret's long run growth rate. If regret grows sublinearly, then regret divided by $T$ goes to zero as $T$ grows, meaning that on average per round, the algorithm does just as well as the best fixed strategy in hindsight. Poorer performance in early rounds is acceptable. The important thing is that the algorithm doesn't keep falling behind the best fixed strategy by a significant amount as more rounds are played.
 
 An important result asserts the existence of algorithms that guarantee sublinear regret for any convex and compact domain $cX$, typically of the order $"Reg"^((T)) = O(sqrt(T))$ asymptotically.
