@@ -15,20 +15,20 @@
   meetings: "We are happy to meet with students by appointment.",
   instructors: (
     (name: "Constantinos Daskalakis", citation_name: "Daskalakis, Constantinos",
-     email: "costis@csail.mit.edu", office: "32-G694", building: "the Stata building",
+     email: "6.7980-staff@mit.edu", office: "32-G694", building: "the Stata building",
      url: "https://people.csail.mit.edu/costis"),
     (name: "Gabriele Farina", citation_name: "Farina, Gabriele",
-     email: "gfarina@mit.edu", office: "45-501F", building: "the College of Computing building",
+     email: "6.7980-staff@mit.edu", office: "45-501F", building: "the College of Computing building",
      url: "https://www.mit.edu/~gfarina"),
   ),
   other_staff: (
-    (name: "Brian Hu Zhang", email: "zhangbh@mit.edu", office: "32-G540"),
+    (name: "Brian Hu Zhang", email: "6.7980-staff@mit.edu", office: "32-G540"),
   ),
   tas: (
-    (name: "Kat Fedorova", email: "fedorova@mit.edu", office_hours: "Wednesdays, 4:30-5:30 pm, room 32-G5 (lounge of 5th floor, Gates tower)"),
-    (name: "Mingyang Liu", email: "liumy19@mit.edu", office_hours: "Fridays, 5:30-6:30 pm, room 45-501N"),
-    (name: "Daniel Xia", email: "dxia03@mit.edu", office_hours: "Mondays, 10-11 am, room 45-509"),
-    (name: "Rui Yao", email: "rayyao@mit.edu", office_hours: "Tuesdays, 3:30-4:30 pm, room 32-G5 (lounge of 5th floor, Gates tower)"),
+    (name: "Kat Fedorova", email: "6.7980-staff@mit.edu", office_hours: "Wednesdays, 4:30-5:30 pm, room 32-G5 (lounge of 5th floor, Gates tower)"),
+    (name: "Mingyang Liu", email: "6.7980-staff@mit.edu", office_hours: "Fridays, 5:30-6:30 pm, room 45-501N"),
+    (name: "Daniel Xia", email: "6.7980-staff@mit.edu", office_hours: "Mondays, 10-11 am, room 45-509"),
+    (name: "Rui Yao", email: "6.7980-staff@mit.edu", office_hours: "Tuesdays, 3:30-4:30 pm, room 32-G5 (lounge of 5th floor, Gates tower)"),
   ),
   grading: (attendance: 20, material: 30, project: 50),
   // Website metadata only; these readings are not displayed in the syllabus PDF.
